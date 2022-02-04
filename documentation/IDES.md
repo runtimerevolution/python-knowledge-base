@@ -1,5 +1,10 @@
 # Python IDEs
 
+- [VSCode](#vscode)
+- [Pycharm](#pycharm)
+
+---
+
 ## VSCode
 
 Available at https://code.visualstudio.com/
@@ -16,6 +21,8 @@ A free and lightweight code editor with an easy customization and supports many 
   - Full integration with Git
 - [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
   - Adds python language support
+
+---
 
 ## Pycharm
 

@@ -1,5 +1,10 @@
 # Macbook OS Setup
 
+- [Mac M1](#mac-m1)
+- [General Setup](#general-setup)
+
+---
+
 ## Mac M1
 
 * Install all OS updates, via System Preferences
@@ -17,6 +22,8 @@
     4. restart the terminal 
     5. now your terminal can run as it would on an Apple with an Intel processor
 * Install HomeBrew https://brew.sh/ from that terminal
+
+---
 
 ## General Setup
 
