@@ -14,12 +14,12 @@ You will need:
 
  - Once you have installed the requirements you need to configure your agent:
     - Run the DataDog agent
-    - In the menu bar select "Open Web UI" [Menu Bar Interface](./images/datadog-agent.png)
-    - Go to settings [reference](./images/datadog-settings.png), and add the following:
+    - In the menu bar select "Open Web UI", see [this](./images/datadog-agent.png)
+    - Go to settings, see [this](./images/datadog-settings.png), and add the following:
         - `logs_enabled: true`
         - `apm_non_local_traffic: true`
-    - Go to Checks [ref.](./images/datadog-checks-config.png)
-    - Add a new check for **python** [ref.](./images/datadog-add-check.png)
+    - Go to Checks, see [this](./images/datadog-checks-config.png)
+    - Add a new check for **python**, see [this](./images/datadog-add-check.png)
     - Change the content of `conf.yml` to your needs
         - note that you can have multiple entries in this file
     - Paste the contens of `conf.yml` into you **python** Check and Save
