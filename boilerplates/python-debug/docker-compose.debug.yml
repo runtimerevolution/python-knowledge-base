@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  pythondebug:
+    image: pythondebug
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:3000 django_debug_test/manage.py runserver 0.0.0.0:8000 --nothreading --noreload"]
+    ports:
+      - 8000:8000
+      - 3000:3000
+ 
