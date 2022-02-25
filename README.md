@@ -8,4 +8,5 @@
     - [General Setup](documentation/MACOS_SETUP.md#general-setup)
 - [IDEs](documentation/IDES.md)
     - [VSCode](documentation/IDES.md#vscode)
+        - [Debugging](boilerplates/python-debug/README.md)
     - [Pycharm](documentation/IDES.md#pycharm)
