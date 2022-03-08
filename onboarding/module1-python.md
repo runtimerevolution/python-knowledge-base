@@ -5,7 +5,7 @@
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
 - [Awesome Runtime Python](../README.md)
-  - [Python Setup](../python_setup/README.md) (Correct way to install python)
+  - [Python Setup](./SETUP.md) (Correct way to install python)
   - [Project Setup](../project_setup/README.md)
 
 ## Timeline
