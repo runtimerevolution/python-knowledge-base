@@ -4,15 +4,13 @@
 
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
-- [Awesome Runtime Python](../README.md)
-  - [Python Setup](./SETUP.md) (Correct way to install python)
-  - [Project Setup](../project_setup/README.md)
+- [Project Setup](./PROJECT-SETUP.md) (Correct way to install python)
 
 ## Timeline
 
 ### Day 1
 
-Setup your python environment by following this [guide](../python_setup/README.md).
+Setup your project environment by following this [guide](./PROJECT-SETUP.md).
 
 Then get familiar with the language:
 
