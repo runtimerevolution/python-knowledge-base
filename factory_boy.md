@@ -50,7 +50,7 @@ Let's say we want our music durations to be between 30 and 500 seconds
 we can use `random_int` like in 
 https://faker.readthedocs.io/en/latest/providers/baseprovider.html#faker.providers.BaseProvider.random_int
 
-**Common Mistake:**
+:x: **Common Mistake:**
 ````python
 class MusicTrackFactory(models.Model):
     name = factory.Faker('name')
@@ -61,7 +61,7 @@ the issue with the implementation above is that it will generate a random number
 For example, when you would run a `MusicTrackFactory.create()` the duration would be some random number like 154, 
 and the next time you run `MusicTrackFactory.create()` the duration would all be 154, instead  of a new random number
 
-**Correct Implementation:**
+:white_check_mark: **Correct Implementation:**
 ````python
 class MusicTrackFactory(models.Model):
     name = factory.Faker('name')
