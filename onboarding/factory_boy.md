@@ -39,7 +39,7 @@ class MusicTrackFactory(models.Model):
     name = factory.Faker('name')
 
     class Meta:
-        model = MuiscTrack
+        model = MusicTrack
 ````
 Basically this is calling the `name` function in Faker library 
 https://faker.readthedocs.io/en/latest/providers/faker.providers.person.html#faker.providers.person.Provider.name
@@ -106,7 +106,7 @@ class MusicTrackFactory(models.Model):
     band = factory.SubFactory(BandFactory)
 
     class Meta:
-        model = MuiscTrack
+        model = MusicTrack
         django_get_or_create = ("name","band",)
 ````
 
@@ -127,6 +127,6 @@ class MusicTrackFactory(models.Model):
     release_date = factory.Faker('date_this_century',before_today=True)
     duration = fake.random_int(min=30, max=500)
     class Meta:
-        model = MuiscTrack
+        model = MusicTrack
         django_get_or_create = ("name","band",)
 ````
