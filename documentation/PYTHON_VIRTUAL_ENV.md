@@ -1,10 +1,10 @@
-# Python Virtual Environment Ecosystem
+# Python Virtual Environment
 
 The virtual environment ecosystem is composed by 3 different parts:
 
--  __Python version__ Depending on the system you're using, a particular Python version can be installed via that system package manager or via `pyenv`.
+- __Python version__ Depending on the system you're using, a particular Python version can be installed via that system package manager or via `pyenv`.
 - __Virtual Environment__ A virtual environment is a Python environment such that the Python interpreter, libraries and scripts installed into it are isolated from those installed in other virtual environments, and (by default) any libraries installed in a “system” Python, i.e., one which is installed as part of your operating system. [docs.python.org](https://docs.python.org/3/library/venv.html#:~:text=A%20virtual%20environment%20is%20a,part%20of%20your%20operating%20system.)
-- __Dependency listing__ A list of all the Python dependencies for a given project.Typically called `requirements.txt`, but can also take a more complex form where there's a distinction between which dependencies belong to production and which belong to development/testing.
+- __Dependency management__ A list of all the Python dependencies for a given project.Typically called `requirements.txt`, but can also take a more complex form where there's a distinction between which dependencies belong to production and which belong to development/testing.
 
 ---
 
@@ -16,21 +16,44 @@ The most popular option is `pyenv`, even when a particular version is available 
 
 Check the documentation at https://github.com/pyenv/pyenv .
 
-Allows to specifiy a particular Python version to be used in a virtual environment.
+Allows to specify a particular Python version to be used in a virtual environment.
 
 List all Python versions available to pyenv
 
 ```bash
-pyenv install -l
+$ pyenv install -l
 ```
 
 Choose a version and install it
 
 ```bash
-pyenv install 3.10.4
+$ pyenv install 3.10.4
 ```
 
 Versions are available under are available under `~/.pyenv/versions/`
+
+#### Global
+
+The global command sets the global Python version, which is useful for
+ensuring a particular Python version by default. If you wanted to use 3.7.10 by default, 
+then you could run this:
+
+```bash
+$ pyenv global 3.7.10
+```
+
+This command sets the ~/.pyenv/version to 3.7.10.
+
+#### Local
+
+The local command is used to set an application-specific Python version
+
+```bash
+$ pyenv local 3.10.4
+```
+
+This command creates a .python-version file in your current directory. If you have pyenv active in your environment, 
+this file will automatically activate this version for you.
 
 ---
 
@@ -38,11 +61,15 @@ Versions are available under are available under `~/.pyenv/versions/`
 
 ### venv
 
-The most simple for is `venv` using the Python system version
+The most simple is `venv` using the Python system version
 
 ```bash
 python -m venv simple-venv
 ```
+
+| activate                    | deactivate   |
+|-----------------------------|--------------|
+| `source venv/bin/activate`  | `deactivate` |
 
 ### Pyenv + Virtualenv
 
@@ -52,18 +79,29 @@ Pyenv supports the creation of a virtualenv tied to a particular Python version.
 pyenv virtualenv 3.10.4 sample-virtual-env
 ```
 
+| activate                                                   | deactivate    |
+|------------------------------------------------------------|---------------|
+| `source ~/.pyenv/versions/sample-virtual-env/bin/activate` | `deactivate`  |
+| `pyenv local sample-virtual-env`                           | `deactivate`  |
+
+
 ### Poetry
 
-Includes a virtualenv https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment. 
+This is a packaging and dependency management all in one, which means:
 
-Check the documentation available at https://python-poetry.org/docs/, the installation should be system wide, even though it can be installed on a particular environment.
+- it supports builds
+- you can publish your package to both public and private repositories
+- includes a virtualenv https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment. 
+
+Check the documentation available at https://python-poetry.org/docs/, the installation should be system-wide, 
+even though it can be installed on a particular environment.
 
 
 ```bash
 poetry new poetry-demo
 ```
 
-This will create the `poetry-demo` direcctory with the following content.
+This will create the `poetry-demo` directory with the following content.
 
 ```bash
 poetry-demo
@@ -76,18 +114,56 @@ poetry-demo
     └── test_poetry_demo.py
 ```
 
+#### Poetry + pyenv
 
-
-### Pyenv + virtualenv + pipenv
-
-
-
-
-### Poetry + pyenv
-
-To use poetry with a particular Python version, that version only needs to be available in the system. In this case, we're using the a Python version provided by `pyenv`.
+To use poetry with a particular Python version, that version only needs to be available in the system. In this case, 
+we're using a Python version provided by `pyenv`. For further documentation please 
+check https://python-poetry.org/docs/managing-environments/#switching-between-environments
 
 ```bash
 cd poetry-demo
 poetry env use ~/.pyenv/versions/3.10.4/bin/python
 ```
+---
+
+## Dependency Management
+
+|               | pip                          | pipenv                                | Poetry                             |
+|---------------|------------------------------|---------------------------------------|------------------------------------|
+| search        | pip search <package_name>    | pipenv search <package_name>          | poetry search <package_name>       |
+| install       | pip install <package_name>   | pipenv install <package_name>         | poetry add <package_name>          |
+| install dev   |                              | pipenv install <package_name> --dev   | poetry add <package_name> --dev    |
+| uninstall     | pip uninstall <package_name> | pipenv uninstall <package_name>       | poetry remove <package_name>       |
+| uninstall dev |                              | pipenv uninstall <package_name> --dev | poetry remove <package_name> --dev |
+| list packages | pip list                     | pip list                              | poetry show                        |
+| build         |                              |                                       | poetry build                       |
+| publish       |                              |                                       | poetry publish                     |
+
+
+### Pip
+
+https://pip.pypa.io/en/stable/
+
+Pip is the package installer for Python. You can use it to install packages from the Python Package Index 
+and other indexes.
+
+### pipenv
+
+https://pipenv.pypa.io/en/latest/
+
+Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the 
+Python world. Windows is a first-class citizen, in our world.
+It automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your Pipfile 
+as you install/uninstall packages. It also generates the ever-important Pipfile.lock, which is used to produce 
+deterministic builds.
+Pipenv uses Pipfile and Pipfile.lock to separate abstract dependency declarations from the last tested combination.
+
+### Poetry
+
+https://python-poetry.org/
+
+Poetry also allows a version lock similarly to Pipenv, in this case it's called Poetry.lock
+
+### pipx
+
+Pipx allows the installation and execution of Python applications in isolated environments. 
