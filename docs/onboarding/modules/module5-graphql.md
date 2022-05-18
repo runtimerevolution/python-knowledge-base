@@ -1,11 +1,10 @@
-# Module 5 - GraphQL (DO NOT INCLUDE THIS TITLE)
+# Module 5 - GraphQL
 
 ## References
 
 - [GraphQL](https://graphql.org/)
 - [Graphene](https://graphene-python.org/)
 - [cheatsheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
-
 
 ## Timeline
 

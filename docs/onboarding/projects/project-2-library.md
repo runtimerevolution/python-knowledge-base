@@ -1,8 +1,8 @@
-### Library Project
+# Library Project
 
-Talk to you team leader and try to design a Library project in Django. 
+Talk to you team leader and try to design a Library project in Django.
 
-#### Requirements
+## Requirements
 
 User needs to be able to manage Authors, Books, and Genres in the app.
 

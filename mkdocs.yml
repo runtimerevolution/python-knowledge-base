@@ -1,0 +1,6 @@
+site_name: Python Knowledge Base
+
+theme:
+  name: material
+  palette:
+    primary: indigo
