@@ -1,6 +1,7 @@
 # Style Guide
 
-> Inspired by [https://google.github.io/styleguide/pyguide.html](https://google.github.io/styleguide/pyguide.html) and [https://phalt.github.io/django-api-domains/styleguide/](https://phalt.github.io/django-api-domains/styleguide/).
+> Inspired by [https://google.github.io/styleguide/pyguide.html](https://google.github.io/styleguide/pyguide.html) and
+[https://phalt.github.io/django-api-domains/styleguide/](https://phalt.github.io/django-api-domains/styleguide/).
 
 ## Introduction
 
@@ -22,11 +23,16 @@ datastore, but with an emphasis on **skinny models**.
 
 1. You should split a domain if it becomes too big to work on.
 
-> A domain should allow between 4-6 developers (3 pairs) to comfortably work on it. If you find your developers being blocked by each other then it is time to consider splitting the domain or checking whether the software has not diverged too far from the styleguide.
+> A domain should allow between 4-6 developers (3 pairs) to comfortably work on it. If you find your developers being
+blocked by each other then it is time to consider splitting the domain or checking whether the software has not
+diverged too far from the styleguide.
 
-2. You should adhere to the styleguide patterns in this document in order to maintain strong bounded contexts between your domains.
+2. You should adhere to the styleguide patterns in this document in order to maintain strong bounded contexts between
+your domains.
 
-> This applies even in situations where you extract one domain into two domains to increase velocity, but they still have to maintain a dependency between one another. We have found that if you relax the bounded context between domains, the boundary will erode and you will lose the ability to work on them independent of each other.
+> This applies even in situations where you extract one domain into two domains to increase velocity, but they still
+have to maintain a dependency between one another. We have found that if you relax the bounded context between domains,
+the boundary will erode and you will lose the ability to work on them independent of each other.
 
 ### 1.2 Structure
 
@@ -1509,7 +1515,7 @@ A docstring should give enough information to write a call to the function
 without reading the function's code. The docstring should be descriptive-style
 (`"""Fetches rows from a Bigtable."""`) rather than imperative-style (`"""Fetch
 rows from a Bigtable."""`), except for `@property` data descriptors, which
-should use the <a href="#384-classes">same style as attributes</a>. A docstring
+should use the [same style as attributes](#384-classes). A docstring
 should describe the function's calling syntax and its semantics, not its
 implementation. For tricky code, comments alongside the code are more
 appropriate than using docstrings.
