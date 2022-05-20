@@ -1,4 +1,4 @@
-# Python/Django Onboarding
+# Python/Django Onboarding Template
 
 ## References
 
@@ -15,7 +15,6 @@
 ### Module N day M
 
 ...
-
 
 ### Project I
 

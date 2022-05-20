@@ -1,4 +1,4 @@
-# Module 1 - Python Language (DO NOT INCLUDE THIS TITLE)
+# Module 1 - Python Language
 
 ## References
 
@@ -24,6 +24,5 @@ Then get familiar with the language:
 - [Input and Output](https://python.swaroopch.com/io.html)
 - [Exceptions](https://python.swaroopch.com/exceptions.html)
 - [More](https://python.swaroopch.com/more.html)
-
 
 Challenge yourself 💪. Do a [code challenge](https://leetcode.com/problems/two-sum/) in Python3.
