@@ -5,14 +5,14 @@ are relevant for the destination project/seniority/previous know-how.
 
 > Please make sure to follow the [Project Setup Guide](project-setup-guide.md)
 
-1. create a repository in Bitbucket under <https://bitbucket.org/runtimerevolution/workspace/projects/TRAIN>,
+1. Create a repository in Bitbucket under <https://bitbucket.org/runtimerevolution/workspace/projects/TRAIN>,
 for the developer. The repository name must follow the rule __< runtime username >-onboarding__
 2. Include a README.md file with the onboarding instructions
-   1. use the [onboarding template](onboarding-template.md)
-   2. fill in the gaps by copying the modules, from the table below, that are relevant to the onboarding-template/README.md
-   3. choose one or more of the available projects
+   1. Use the [onboarding template](onboarding-template.md)
+   2. Fill in the gaps by copying the modules, from the table below, that are relevant to the onboarding-template/README.md
+   3. Choose one or more of the available projects
 3. share the repository with the developer
-4. the development process must use Git flow
+4. The development process must use Git flow
 5. [request feedback](https://forms.gle/1uqg4BEbu6fprPan7) once the onboarding process is finished
 
 > Template sample available [here](onboarding-sample.md)
