@@ -4,3 +4,9 @@ theme:
   name: material
   palette:
     primary: indigo
+  icon:
+    repo: fontawesome/brands/github
+
+repo_url: https://github.com/runtimerevolution/python-knowledge-base
+repo_name: runtimerevolution/python-knowledge-base
+edit_uri: ""

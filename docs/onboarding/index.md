@@ -33,5 +33,5 @@ for the developer. The repository name must follow the rule __< runtime username
 
 | Project                                                  | Duration (days) |
 |----------------------------------------------------------|-----------------|
-| [URL shortener website project (Smul)](projects/project1-smul.md) | 3               |
-| [Library manager](projects/project2-library.md)                   | 2               |
+| [URL shortener website project (Smul)](./projects/project-1-smul.md) | 3               |
+| [Library manager](./projects/project-2-library.md)                   | 2               |

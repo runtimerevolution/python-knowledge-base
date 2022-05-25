@@ -8,6 +8,8 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.10"
 pip = "^22.1"
 mkdocs-material = "^8.2.15"
+mkdocs-git-revision-date-plugin = "^0.3.2"
+mkdocs-git-revision-date-localized-plugin = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 
