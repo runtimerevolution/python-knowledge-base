@@ -6,3 +6,5 @@ class SampleTest(TestCase):
 
     def test_nothing(self):
         pass
+        a = "I am a very very lsdknf lkjasd nlkajsdbflk sdjbfklajsdbfkjdbfkljsdabf lkdbflkasjdbfakjsdbflahsbdfbhvsdfhb"
+        print(a)

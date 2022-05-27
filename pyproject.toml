@@ -11,6 +11,7 @@ mkdocs-material = "^8.2.15"
 mkdocs-git-revision-date-plugin = "^0.3.2"
 mkdocs-git-revision-date-localized-plugin = "^1.0.1"
 Django = "4.0.4"
+psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 isort = "5.10.1"

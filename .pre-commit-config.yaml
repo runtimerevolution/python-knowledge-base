@@ -22,3 +22,5 @@ repos:
       - id: check-merge-conflict # don't accidentally commit files with incomplete merges
       - id: end-of-file-fixer # makes all files end in a newline
       - id: mixed-line-ending # fixes mixed line endings automatically
+      - id: no-commit-to-branch
+        args: ["-b master"] # no commits to master
