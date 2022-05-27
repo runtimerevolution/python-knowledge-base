@@ -1,3 +1,8 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+class SampleTest(TestCase):
+    """Test to be deleted simply to test pre-commit"""
+
+    def test_nothing(self):
+        pass
