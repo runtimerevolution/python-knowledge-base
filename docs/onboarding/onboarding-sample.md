@@ -4,7 +4,7 @@
 
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
-- [Project Setup](./PROJECT-SETUP.md)
+- [Project Setup](./project-setup-guide.md)
 - [Getting Started with Django](https://www.djangoproject.com/start/)
   - [Quick install guide](https://docs.djangoproject.com/en/dev/intro/install/)
   - [Write your first Django app](https://docs.djangoproject.com/en/dev/intro/tutorial01/)
@@ -20,7 +20,7 @@
 
 ### Day 1
 
-Set up your project environment by following this [guide](./PROJECT-SETUP.md).
+Set up your project environment by following this [guide](./project-setup-guide.md).
 Then get familiar with the language:
 
 - [Basics](https://python.swaroopch.com/basics.html)
