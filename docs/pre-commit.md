@@ -99,7 +99,7 @@ exclude =
     inspectdb_models
 ```
 
-## Activation
+## Activation / Deactivation
 
 To enable pre-commit just run:
 ```
