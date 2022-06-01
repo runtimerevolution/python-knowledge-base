@@ -84,45 +84,6 @@ pyenv virtualenv 3.10.4 sample-virtual-env
 | `source ~/.pyenv/versions/sample-virtual-env/bin/activate` | `deactivate`  |
 | `pyenv local sample-virtual-env`                           | `deactivate`  |
 
-### Poetry
-
-This is a packaging and dependency management all in one, which means:
-
-- it supports builds
-- you can publish your package to both public and private repositories
-- includes a virtualenv <https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment>.
-
-Check the documentation available at <https://python-poetry.org/docs/>, the installation should be system-wide,
-even though it can be installed on a particular environment.
-
-```bash
-poetry new poetry-demo
-```
-
-This will create the `poetry-demo` directory with the following content.
-
-```bash
-poetry-demo
-├── pyproject.toml
-├── README.rst
-├── poetry_demo
-│   └── __init__.py
-└── tests
-    ├── __init__.py
-    └── test_poetry_demo.py
-```
-
-#### Poetry + pyenv
-
-To use poetry with a particular Python version, that version only needs to be available in the system. In this case,
-we're using a Python version provided by `pyenv`. For further documentation please
-check <https://python-poetry.org/docs/managing-environments/#switching-between-environments>
-
-```bash
-cd poetry-demo
-poetry env use ~/.pyenv/versions/3.10.4/bin/python
-```
-
 ---
 
 ## Dependency Management
@@ -194,7 +155,46 @@ __Pipfile.lock__ holds the exact version that was installed upon the time of the
 we're using Django but haven't set a particular version, this means everytime we run `pipenv install` the latest
 version of Django would be installed.
 
-### Poetry dependency management
+### Poetry
+
+This is a packaging and dependency management all in one, which means:
+
+- it supports builds
+- you can publish your package to both public and private repositories
+- includes a virtualenv <https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment>.
+
+Check the documentation available at <https://python-poetry.org/docs/>, the installation should be system-wide,
+even though it can be installed on a particular environment.
+
+```bash
+poetry new poetry-demo
+```
+
+This will create the `poetry-demo` directory with the following content.
+
+```bash
+poetry-demo
+├── pyproject.toml
+├── README.rst
+├── poetry_demo
+│   └── __init__.py
+└── tests
+    ├── __init__.py
+    └── test_poetry_demo.py
+```
+
+#### Poetry + pyenv
+
+To use poetry with a particular Python version, that version only needs to be available in the system. In this case,
+we're using a Python version provided by `pyenv`. For further documentation please
+check <https://python-poetry.org/docs/managing-environments/#switching-between-environments>
+
+```bash
+cd poetry-demo
+poetry env use ~/.pyenv/versions/3.10.4/bin/python
+```
+
+#### Dependency management
 
 <https://python-poetry.org/docs/dependency-specification/>
 
