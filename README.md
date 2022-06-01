@@ -1,11 +1,10 @@
-# Python Unit Knowledge Base
+# Python Knowledge Base
 
-## Table of contents
+## Setup
 
-- [Onboarding](onboarding/README.md)
-- [Mac OS setup](documentation/MACOS_SETUP.md)
-    - [Mac M1](documentation/MACOS_SETUP.md#mac-m1)
-    - [General Setup](documentation/MACOS_SETUP.md#general-setup)
-- [IDEs](documentation/IDES.md)
-    - [VSCode](documentation/IDES.md#vscode)
-    - [Pycharm](documentation/IDES.md#pycharm)
+This project uses Poetry [https://python-poetry.org/](https://python-poetry.org/), make sure it's present on your system.
+
+1. clone project
+2. `cd python-knowledge-base`
+3. run `poetry install`
+4. run `poetry run mkdocs serve`

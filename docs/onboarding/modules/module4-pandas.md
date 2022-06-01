@@ -1,11 +1,10 @@
-# Module 4 - Pandas (DO NOT INCLUDE THIS TITLE)
+# Module 4 - Pandas
 
 ## References
 
 - [pandas](https://pandas.pydata.org/docs/index.html)
 - [kaggle](https://www.kaggle.com/learn/pandas)
 - [cheatsheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
-
 
 ## Timeline
 

@@ -1,0 +1,11 @@
+services:
+  library-postgres:
+    container_name: library-postgres
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_DB=${POSTGRES_DBNAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PWD}
+    ports:
+      - "${POSTGRES_PORT}:5432"

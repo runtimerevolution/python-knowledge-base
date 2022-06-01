@@ -1,0 +1,15 @@
+[flake8]
+max-line-length = 120
+max-complexity=10
+exclude =
+    */migrations/*
+    __pycache__
+    manage.py
+    settings.py
+    env
+    .env
+    ./env
+    env/
+    .env/
+    .venv/
+    inspectdb_models
