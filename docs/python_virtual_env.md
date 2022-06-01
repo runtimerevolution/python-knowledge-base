@@ -198,7 +198,7 @@ poetry env use ~/.pyenv/versions/3.10.4/bin/python
 
 <https://python-poetry.org/docs/dependency-specification/>
 
-Simillarly to Pipenv, Poetry also allows a version lock and a distinction between production and development packages.
+Similarly to Pipenv, Poetry also allows a version lock and a distinction between production and development packages.
 
 - tool.poetry.dependencies: list of _production_ packages and matching version defined by the user, which is * if not
 specified. Python version is also specified here
