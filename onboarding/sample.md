@@ -4,9 +4,7 @@
 
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
-- [Awesome Runtime Python](../README.md)
-  - [Python Setup](../python_setup/README.md) (Correct way to install python)
-  - [Project Setup](../project_setup/README.md)
+- [Project Setup](./PROJECT-SETUP.md)
 - [Getting Started with Django](https://www.djangoproject.com/start/)
   - [Quick install guide](https://docs.djangoproject.com/en/dev/intro/install/)
   - [Write your first Django app](https://docs.djangoproject.com/en/dev/intro/tutorial01/)
@@ -22,7 +20,7 @@
 
 ### Day 1
 
-Set up your python environment by following this [guide](../python_setup/README.md).
+Set up your project environment by following this [guide](./PROJECT-SETUP.md).
 Then get familiar with the language:
 
 - [Basics](https://python.swaroopch.com/basics.html)
@@ -81,7 +79,8 @@ Challenge yourself 💪. Do a [code challenge](https://leetcode.com/problems/two
 - Test a view
 - When testing, more is better
 
-Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) / [7](https://docs.djangoproject.com/en/dev/intro/tutorial07/) (Optional)
+Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) / 
+[7](https://docs.djangoproject.com/en/dev/intro/tutorial07/) (Optional)
 
 - Customize your app's look and feel
 - Adding a background-image
@@ -114,7 +113,8 @@ Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) / [7](https://
 
 ### Day 6
 
-[Django REST Framework Tutorial](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/) (Part 4, 5)
+[Django REST Framework Tutorial](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/) 
+(Part 4, 5)
 [Part 4](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/)
 
 - Adding permissions to views
@@ -149,10 +149,15 @@ Talk to you team leader and try to design a Library project in Django.
 
 User needs to be able to manage Authors, Books, and Categories in the app.
 Each Author can have many Books that he/her has written and each book can be included in multiple categories.
-The User should be able to view lists of Authors and Books. The Books should be able to be filtered by Author and by Category
+The User should be able to view lists of Authors and Books. The Books should be able to be filtered by Author and by 
+Category
 
 > Optional: You can also have a search bar for Authors and for Books (one for each)
-The App should also include a page to view some basic statistics, like the number of Books per Author, or the number of Books per Category. Feel free to add your own statistcs here.
+The App should also include a page to view some basic statistics, like the number of Books per Author, or the number of 
+> Books per Category. Feel free to add your own statistics here.
+
+Optional: To complicate the models. A book can have many instances and users can request an instance to take home with a
+requested date
 
 ## Finish
 
