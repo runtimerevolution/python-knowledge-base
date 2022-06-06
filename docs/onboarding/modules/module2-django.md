@@ -1,4 +1,4 @@
-# Module 2 - Django (DO NOT INCLUDE THIS TITLE)
+# Module 2 - Django
 
 ## References
 

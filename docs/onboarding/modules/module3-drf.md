@@ -1,4 +1,4 @@
-# Module 3 - Django REST Framework (DO NOT INCLUDE THIS TITLE)
+# Module 3 - Django REST Framework
 
 ## References
 

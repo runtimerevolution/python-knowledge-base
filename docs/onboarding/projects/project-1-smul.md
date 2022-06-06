@@ -1,8 +1,8 @@
-### Smul Project
+# Smul Project
 
 Talk to you team leader and try to design a URL Shortener project in Django. (There is already a project made in Django but we want you to try to solve this one by yourself. You can do it 🚀)
 
-#### Requirements
+## Requirements
 
 User needs to be able to go to a webpage input a big url into a form and retrieve a *smul* url.
 
@@ -10,7 +10,7 @@ If clicked, this url should redirect the user to the original url.
 
 If user inputs the same big url multiple times the *smul* url should always be the same.
 
-#### Steps (optional)
+## Steps (optional)
 
 If you have an idea already of how you going to do it don't bother reading this but if you want some ~~help~~ inspiration here are some steps to follow.
 

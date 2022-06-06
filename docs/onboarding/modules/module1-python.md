@@ -1,16 +1,16 @@
-# Module 1 - Python Language (DO NOT INCLUDE THIS TITLE)
+# Module 1 - Python Language
 
 ## References
 
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
-- [Project Setup](./PROJECT-SETUP.md) (Correct way to install python)
+- [Project Setup](../project-setup-guide.md) (Correct way to install python)
 
 ## Timeline
 
 ### Day 1
 
-Setup your project environment by following this [guide](./PROJECT-SETUP.md).
+Setup your project environment by following this [guide](../project-setup-guide.md).
 
 Then get familiar with the language:
 
@@ -24,6 +24,5 @@ Then get familiar with the language:
 - [Input and Output](https://python.swaroopch.com/io.html)
 - [Exceptions](https://python.swaroopch.com/exceptions.html)
 - [More](https://python.swaroopch.com/more.html)
-
 
 Challenge yourself 💪. Do a [code challenge](https://leetcode.com/problems/two-sum/) in Python3.

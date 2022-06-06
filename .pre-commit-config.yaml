@@ -1,0 +1,26 @@
+default_language_version:
+  python: python3.10
+repos:
+  - repo: https://github.com/psf/black
+    rev: 22.3.0 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: "5.10.1" # Use the revision sha / tag you want to point at
+    hooks:
+      - id: isort
+  - repo: https://github.com/pycqa/flake8
+    rev: "4.0.1"
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0 # Use the ref you want to point at
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=1024"] # throw an error if we try to commit a 1MB or greater file
+      - id: check-case-conflict # so we don't rename files that will break case insensitive filesystems
+      - id: check-merge-conflict # don't accidentally commit files with incomplete merges
+      - id: end-of-file-fixer # makes all files end in a newline
+      - id: mixed-line-ending # fixes mixed line endings automatically
+      - id: no-commit-to-branch
+        args: ["-b master"] # no commits to master

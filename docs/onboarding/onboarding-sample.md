@@ -1,10 +1,10 @@
-# Python/Django Onboarding
+# Python/Django Onboarding Sample
 
 ## References
 
 - [A Byte of Python](https://python.swaroopch.com/) (Learn Python)
 - [Awesome Python](https://github.com/vinta/awesome-python) (List of Python Resources)
-- [Project Setup](./PROJECT-SETUP.md)
+- [Project Setup](./project-setup-guide.md)
 - [Getting Started with Django](https://www.djangoproject.com/start/)
   - [Quick install guide](https://docs.djangoproject.com/en/dev/intro/install/)
   - [Write your first Django app](https://docs.djangoproject.com/en/dev/intro/tutorial01/)
@@ -20,7 +20,7 @@
 
 ### Day 1
 
-Set up your project environment by following this [guide](./PROJECT-SETUP.md).
+Set up your project environment by following this [guide](./project-setup-guide.md).
 Then get familiar with the language:
 
 - [Basics](https://python.swaroopch.com/basics.html)
@@ -79,7 +79,7 @@ Challenge yourself 💪. Do a [code challenge](https://leetcode.com/problems/two
 - Test a view
 - When testing, more is better
 
-Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) / 
+Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) /
 [7](https://docs.djangoproject.com/en/dev/intro/tutorial07/) (Optional)
 
 - Customize your app's look and feel
@@ -113,7 +113,7 @@ Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) /
 
 ### Day 6
 
-[Django REST Framework Tutorial](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/) 
+[Django REST Framework Tutorial](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/)
 (Part 4, 5)
 [Part 4](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/)
 
@@ -135,6 +135,7 @@ Part [6](https://docs.djangoproject.com/en/dev/intro/tutorial06/) /
 - Adding pagination
 
 ### Day 7
+
 [pandas getting started](https://pandas.pydata.org/docs/getting_started/index.html)
 
 - Installing pandas
@@ -149,11 +150,11 @@ Talk to you team leader and try to design a Library project in Django.
 
 User needs to be able to manage Authors, Books, and Categories in the app.
 Each Author can have many Books that he/her has written and each book can be included in multiple categories.
-The User should be able to view lists of Authors and Books. The Books should be able to be filtered by Author and by 
+The User should be able to view lists of Authors and Books. The Books should be able to be filtered by Author and by
 Category
 
 > Optional: You can also have a search bar for Authors and for Books (one for each)
-The App should also include a page to view some basic statistics, like the number of Books per Author, or the number of 
+The App should also include a page to view some basic statistics, like the number of Books per Author, or the number of
 > Books per Category. Feel free to add your own statistics here.
 
 Optional: To complicate the models. A book can have many instances and users can request an instance to take home with a
