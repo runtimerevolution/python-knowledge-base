@@ -7,7 +7,7 @@
   - [Get started](https://docs.docker.com/get-started/)
   - [Get started - Official Docker Video Tutorial](https://www.youtube.com/watch?v=iqqDU2crIEQ)
   - [Docker documentation](https://docs.docker.com/reference/)
-
+  
 ## Timeline
 
 ### Day 1
@@ -64,3 +64,23 @@
 - Image layering
 - Layer caching
 - Multi-stage builds
+
+
+## Possible troubleshooting (M1 related)
+[Using Bind Mounts: error Couldn't find a package.json file in "/app" #76](https://github.com/docker/getting-started/issues/76)
+
+[docker build command fails on yarn install step with error "gyp ERR! find Python" #124](https://github.com/docker/getting-started/issues/124)
+
+## Useful tutorials/links
+
+[Quickstart: Compose and Django](https://docs.docker.com/samples/django/)
+
+[Introduction to Docker](https://docker-curriculum.com/#introduction)
+
+[Docker for Beginners](https://docker-curriculum.com/)
+
+[Postgres up and running in less than 3 minutes with docker-compose](https://dev.to/raphaelmansuy/postgres-up-and-running-in-less-than-3-minutes-with-docker-compose-1odd)
+
+[How to Dockerize a Django web app elegantly](https://faun.pub/tech-edition-how-to-dockerize-a-django-web-app-elegantly-924c0b83575d)
+
+[Dockerizing a Django + MySQL project](https://dev.to/foadlind/dockerizing-a-django-mysql-project-g4m)
