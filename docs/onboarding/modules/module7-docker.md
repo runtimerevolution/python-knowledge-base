@@ -1,4 +1,4 @@
-# Module 7 - Docker (DO NOT INCLUDE THIS TITLE)
+# Module 7 - Docker
 
 ## References
 
