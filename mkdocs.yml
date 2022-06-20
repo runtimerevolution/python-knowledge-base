@@ -10,3 +10,11 @@ theme:
 repo_url: https://github.com/runtimerevolution/python-knowledge-base
 repo_name: runtimerevolution/python-knowledge-base
 edit_uri: ""
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - footnotes
