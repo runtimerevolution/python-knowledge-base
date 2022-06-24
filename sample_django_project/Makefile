@@ -30,3 +30,6 @@ showmigrations:
 
 createuser:
 	python manage.py createsuperuser --database default
+
+test:
+	python manage.py test
