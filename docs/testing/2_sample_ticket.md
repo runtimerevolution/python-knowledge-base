@@ -309,7 +309,7 @@ class GenerateReportTest(TestCase):
         self.assertIsNone(report)
 
     def test_failure_3_params(self):
-        report = generate_report(None, None, None)()
+        report = GenerateReport(None, None, None)()
         self.assertIsNone(report)
 
 if __name__ == '__main__':
