@@ -139,11 +139,15 @@ functions one-by-one in a step-to-step process.
 import numpy as np
 
 def get_mean(list_):
-    '''Compute Mean'''
+    """
+        Compute Mean
+    """
     print(f"the mean is {np.mean(list_)}") 
 
 def get_max(list_):
-    '''Compute Max'''
+    """
+        Compute Max
+    """
     print(f"the max is {np.max(list_)}") 
 
 def main(list_): 
@@ -189,33 +193,40 @@ abstract class called “Operations” with an abstract method “get_operation�
 advanced topic. If you don’t know what an abstract class is, you can run the following code even without).
 
 Now, all the old functions, now classes are called by the __subclasses__() method. That will find all classes inheriting
-from Operations and operate the function “operations” that is present in all sub-classes.
+from Operations and operate the function “operations” that is present in all subclasses.
+
+> for additional information on abstractmethod decorator please
+> check https://docs.python.org/3/library/abc.html#abc.abstractmethod
 
 ```python
 import numpy as np
 from abc import ABC, abstractmethod
 
 class Operations(ABC):
-    '''Operations'''
+    """Operations"""
+    @staticmethod
     @abstractmethod
-    def operation():
+    def operation(list_):
         pass
 
 class Mean(Operations):
-    '''Compute Max'''
+    """Compute Max"""
+    @staticmethod
     def operation(list_):
         print(f"The mean is {np.mean(list_)}")
 
 class Max(Operations):
-    '''Compute Max'''
+    """Compute Max"""
+    @staticmethod
     def operation(list_):
         print(f"The max is {np.max(list_)}")
 
 class Main:
-    '''Main'''
+    """Main"""
+    @staticmethod
     @abstractmethod
     def get_operations(list_):
-        # __subclasses__ will found all classes inheriting from Operations
+        # __subclasses__ will find all classes inheriting from Operations
         for operation in Operations.__subclasses__():
             operation.operation(list_)
 
@@ -227,7 +238,7 @@ if __name__ == "__main__":
 ```
 
 If now we want to add a new operation e.g.: median, we will only need to add a class “Median” inheriting from the class
-“Operations”. The newly formed sub-class will be immediately picked up by __subclasses__() and no modification in any
+“Operations”. The newly formed subclass will be immediately picked up by __subclasses__() and no modification in any
 other part of the code needs to happen.
 
 The result is a very flexible class, that requires minimum time to be maintained.
@@ -256,17 +267,17 @@ The result of this principle is that we’d write our code in a consistent manne
 our code works, only one.
 
 
->A consequence of LSP is that: the new redefined function in the sub-class should be valid and
+>A consequence of LSP is that: the new redefined function in the subclass should be valid and
 >be possibly used wherever the same function in the parent class is used.
 >
 >This is not, typically the case, indeed usually we, human, think in terms of set theory.
->Having a class that define a concept and sub-classes that expand the first with an
+>Having a class that define a concept and subclasses that expand the first with an
 >exception or different behaviour.
 >
->For example, the sub-class “Platypus”, of the base class “Mammals”, would have the
+>For example, the subclass “Platypus”, of the base class “Mammals”, would have the
 >exception that these mammals lay eggs. The LSP, tell us that it would create a
 >function called “give_birth”, this function will have different behaviour
->for the sub-class Platypus and the sub-class Dog. Therefore, we should have had a
+>for the subclass Platypus and the subclass Dog. Therefore, we should have had a
 >more abstract base class than Mammals that accommodate this.
 >If this sounds very confusing, do not worry, the application of this latter aspect
 >of the LSP is rarely fully implemented, and it rarely leaves the theoretical textbooks.
@@ -284,32 +295,40 @@ This problem arises, primarily, when, a subclass inherits methods from a base cl
 
 Let’s see an example:
 
+> for additional information on abstractmethod decorator please
+> check https://docs.python.org/3/library/abc.html#abc.abstractmethod
+
 ```python
 from abc import ABC, abstractmethod
 
 class Mammals(ABC):
+    @staticmethod
     @abstractmethod
-    def swim() -> bool:
-        print("Can Swim") 
+    def swim():
+        print("Can Swim")
 
+    @staticmethod
     @abstractmethod
-    def walk() -> bool:
-        print("Can Walk") 
+    def walk():
+        print("Can Walk")
 
 class Human(Mammals):
+    @staticmethod
     def swim():
-        return print("Humans can swim") 
+        return print("Humans can swim")
 
+    @staticmethod
     def walk():
-        return print("Humans can walk") 
+        return print("Humans can walk")
 
 class Whale(Mammals):
+    @staticmethod
     def swim():
         return print("Whales can swim") 
 ```
 
 For this example, we have got the abstract class “Mammals” that has two abstract methods: “walk” and “swim”. These two
-elements will belong to the sub-class “Human”, whereas only “swim” will belong to the subclass “Whale”.
+elements will belong to the subclass “Human”, whereas only “swim” will belong to the subclass “Whale”.
 
 And indeed, if we run this code we could have:
 
@@ -326,7 +345,7 @@ Whale.walk()
 # Can Walk
 ```
 
-The sub-class whale can still invoke the method “walk” but it shouldn’t, and we must avoid it.
+The subclass whale can still invoke the method “walk” but it shouldn’t, and we must avoid it.
 
 The way suggested by ISP is to create more client-specific interfaces rather than one general-purpose interface.
 So, our code example becomes:
@@ -335,24 +354,29 @@ So, our code example becomes:
 from abc import ABC, abstractmethod
 
 class Walker(ABC):
-  @abstractmethod
-  def walk() -> bool:
-    return print("Can Walk") 
+    @staticmethod
+    @abstractmethod
+    def walk():
+        return print("Can Walk")
 
 class Swimmer(ABC):
-  @abstractmethod
-  def swim() -> bool:
-    return print("Can Swim") 
+    @staticmethod
+    @abstractmethod
+    def swim():
+        return print("Can Swim")
 
 class Human(Walker, Swimmer):
-  def walk():
-    return print("Humans can walk") 
-  def swim():
-    return print("Humans can swim") 
+    @staticmethod
+    def walk():
+        return print("Humans can walk")
+    @staticmethod
+    def swim():
+        return print("Humans can swim")
 
 class Whale(Swimmer):
-  def swim():
-    return print("Whales can swim") 
+    @staticmethod
+    def swim():
+        return print("Whales can swim") 
 
 if __name__ == "__main__":
   Human.walk()
@@ -364,9 +388,10 @@ if __name__ == "__main__":
 # Humans can walk
 # Humans can swim
 # Whales can swim
+# AttributeError: type object 'Whale' has no attribute 'walk'
 ```
 
-Now, every sub-class inherits only what it needs, avoiding invoking an out-of-context (wrong) sub-method. That might
+Now, every subclass inherits only what it needs, avoiding invoking an out-of-context (wrong) sub-method. That might
 create an error hard to catch.
 
 This principle is closely connected with the other ones and specifically, it tells us to keep the content of a subclass
