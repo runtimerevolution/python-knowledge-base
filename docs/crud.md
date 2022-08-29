@@ -50,7 +50,75 @@ python manage.py migrate
 ```sh
 python manage.py createsuperuser
 ```
-##### Serializer
+## Authentication [Source](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+Authentication is the mechanism of associating an incoming request with a set of identifying credentials, such as the user the request came from, or the token that it was signed with. The permission and throttling policies can then use those credentials to determine if the request should be permitted.
+
+#### How authentication is determined
+The authentication schemes are always defined as a list of classes. REST framework will attempt to authenticate with each class in the list, and will set request.user and request.auth using the return value of the first class that successfully authenticates.
+
+If no class authenticates, request.user will be set to an instance of django.contrib.auth.models.AnonymousUser, and request.auth will be set to None.
+
+#### Setting the authentication scheme
+```python
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+class ExampleView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        content = {
+            'user': str(request.user),  # `django.contrib.auth.User` instance.
+            'auth': str(request.auth),  # None
+        }
+        return Response(content)
+```
+
+
+## Permissions [Source](https://www.django-rest-framework.org/api-guide/permissions/)
+Together with authentication and throttling, permissions determine whether a request should be granted or denied access.
+
+Permission checks are always run at the very start of the view, before any other code is allowed to proceed. Permission checks will typically use the authentication information in the request.user and request.auth properties to determine if the incoming request should be permitted.
+
+Permissions are used to grant or deny access for different classes of users to different parts of the API.
+
+The simplest style of permission would be to allow access to any authenticated user, and deny access to any unauthenticated user. This corresponds to the IsAuthenticated class in REST framework.
+```python
+class IsAuthenticated(BasePermission):
+    """
+    Allows access only to authenticated users.
+    """
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated)
+```
+A slightly less strict style of permission would be to allow full access to authenticated users, but allow read-only access to unauthenticated users. This corresponds to the IsAuthenticatedOrReadOnly class in REST framework.
+```python
+class IsAuthenticatedOrReadOnly(BasePermission):
+    """
+    The request is authenticated as a user, or is a read-only request.
+    """
+    def has_permission(self, request, view):
+        return bool(
+            request.method in SAFE_METHODS or
+            request.user and
+            request.user.is_authenticated
+        )
+```
+#### How permissions are determined
+Permissions in REST framework are always defined as a list of permission classes.
+
+Before running the main body of the view each permission in the list is checked. If any permission check fails, an exceptions.PermissionDenied or exceptions.NotAuthenticated exception will be raised, and the main body of the view will not run.
+
+When the permission checks fail, either a "403 Forbidden" or a "401 Unauthorized" response will be returned, according to the following rules:
+
+-  The request was successfully authenticated, but permission was denied. — An HTTP 403 Forbidden response will be returned.
+-  The request was not successfully authenticated, and the highest priority authentication class does not use WWW-Authenticate headers. — An HTTP 403 Forbidden response will be returned.
+- The request was not successfully authenticated, and the highest priority authentication class does use WWW-Authenticate headers. — An HTTP 401 Unauthorized response, with an appropriate WWW-Authenticate header will be returned.
+
+## Serializers
 #
 ````python
 from rest_framework import serializers
@@ -61,7 +129,80 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
 ````
+#
+#### Serializer Validations - [Source](https://www.django-rest-framework.org/api-guide/serializers/#modelserializer)
+By default, all the model fields on the class will be mapped to a corresponding serializer fields.
+Any relationships such as foreign keys on the model will be mapped to PrimaryKeyRelatedField. Reverse relationships are not included by default unless explicitly included as specified in the serializer relations documentation.
 
+When deserializing data, you always need to call is_valid() before attempting to access the validated data, or save an object instance. If any validation errors occur, the .errors property will contain a dictionary representing the resulting error messages. For example:
+```python
+serializer = CommentSerializer(data={'email': 'foobar', 'content': 'baz'})
+serializer.is_valid()
+# False
+serializer.errors
+# {'email': ['Enter a valid e-mail address.'], 'created': ['This field is required.']}
+```
+
+##### Inspecting a ModelSerializer
+Serializer classes generate helpful verbose representation strings, that allow you to fully inspect the state of their fields. This is particularly useful when working with ModelSerializers where you want to determine what set of fields and validators are being automatically created for you.
+
+Allow blank and null: 
+```python
+name = CharField(allow_blank=True, max_length=100, required=False)
+```
+
+Regex validation:
+```python 
+class UserSerializer(serializers.ModelSerializer):
+     first_name = serializers.RegexField(regex=r'^[a-zA-Z -.\'\_]+$', required=True)
+```
+##### Field-level validation
+Check that the blog post is about Django:
+```python
+from rest_framework import serializers
+
+class BlogPostSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=100)
+    content = serializers.CharField()
+
+    def validate_title(self, value):
+        if 'django' not in value.lower():
+            raise serializers.ValidationError("Blog post is not about Django")
+        return value
+```
+
+Check number limits:
+```python
+def validate_rating(self, value):
+        if value < 1 or value > 10:
+            raise serializers.ValidationError('Rating has to be between 1 and 10.')
+        return value
+```
+
+##### Object-level validation
+To do any other validation that requires access to multiple fields, add a method called .validate() to your Serializer subclass. This method takes a single argument, which is a dictionary of field values. It should raise a serializers.ValidationError if necessary, or just return the validated values. For example:
+```python
+from rest_framework import serializers
+
+class EventSerializer(serializers.Serializer):
+    description = serializers.CharField(max_length=100)
+    start = serializers.DateTimeField()
+    finish = serializers.DateTimeField()
+
+    def validate(self, data):
+        """
+        Check that start is before finish.
+        """
+        if data['start'] > data['finish']:
+            raise serializers.ValidationError("finish must occur after start")
+        return data
+```
+
+
+
+
+#
+#
 ##### Create ViewSet
 As seen in Django Rest Framework docs [(Link)](https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset), the ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes. The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
 
@@ -136,6 +277,24 @@ Another example using actions:
         return Response(serializer.data)
 ````  
 
+#### If a custom endpoint doesn't use Serializer, we must validate each param individually (Example)
+
+```python
+def check_positive_numbers(value1, value2):
+    if value1 <= 0 || value2 <= 0:
+        raise ValidationError(
+            _('The values must be greater than 0')
+        )
+```
+```python
+def validate_birth_date(self, request):
+    birth_date = request.GET.get("birth_date", "")
+    if not birth_date:
+        return None
+    if birth_date >= datetime.date.today():
+        raise ValidationError(_('Enter an accurate birthdate.'))
+    return date
+```
 #
 # Flow (Frontend - Next.js)
 
