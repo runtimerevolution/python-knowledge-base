@@ -128,6 +128,185 @@ When the permission checks fail, either a "403 Forbidden" or a "401 Unauthorized
 -  The request was not successfully authenticated, and the highest priority authentication class does not use WWW-Authenticate headers. — An HTTP 403 Forbidden response will be returned.
 - The request was not successfully authenticated, and the highest priority authentication class does use WWW-Authenticate headers. — An HTTP 401 Unauthorized response, with an appropriate WWW-Authenticate header will be returned.
 
+#### Custom Permissions (Example)
+```python
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Object-level permission to only allow owners of an object to edit it.
+    Assumes the model instance has an `owner` attribute.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Instance must have an attribute named `owner`.
+        return obj.owner == request.user
+```
+Then, in the views file:
+```python
+permission_classes = [IsOwnerOrReadOnly]
+```
+## Logging [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#logging)
+Logging is an important part of every application life cycle. Having a good logging system becomes a key feature that helps developers, sysadmins, and support teams to understand and solve appearing problems.
+The Python standard library and Django already comes with an integrated logging module that provides basic as well as advanced logging features. Log messages can give helpful information about various events happening behind the scenes.
+
+A Python logging configuration consists of four parts:
+- Loggers
+- Handlers
+- Filters
+- Formatters
+
+##### Loggers
+A logger is the entry point into the logging system. Each logger is a named bucket to which messages can be written for processing.
+A logger is configured to have a log level. This log level describes the severity of the messages that the logger will handle. Python defines the following log levels:
+
+- DEBUG: Low level system information for debugging purposes
+- INFO: General system information
+- WARNING: Information describing a minor problem that has occurred.
+- ERROR: Information describing a major problem that has occurred.
+- CRITICAL: Information describing a critical problem that has occurred.
+
+
+##### Handlers
+The handler is the engine that determines what happens to each message in a logger. It describes a particular logging behavior, such as writing a message to the screen, to a file, or to a network socket.
+
+##### Filters
+A filter is used to provide additional control over which log records are passed from logger to handler.
+By default, any log message that meets log level requirements will be handled. However, by installing a filter, you can place additional criteria on the logging process. For example, you could install a filter that only allows ERROR messages from a particular source to be emitted.
+
+##### Formatters
+Ultimately, a log record needs to be rendered as text. Formatters describe the exact format of that text. A formatter usually consists of a Python formatting string containing LogRecord attributes; however, you can also write custom formatters to implement specific formatting behavior.
+
+##### Default logging definition 
+Django’s default logging configuration inherits Python’s defaults. It’s available as django.utils.log.DEFAULT_LOGGING and defined in django/utils/log.py:
+```python
+{
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
+```
+
+##### Basic Custom Logging Configuration [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#topic-logging-parts-loggers)
+#
+Logging configuration that allows to output warnings in the console:
+```python
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+```
+You don’t have to log to the console. Here’s a configuration which writes all logging from the django named logger to a local file:
+```python
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/django/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+```
+
+
+### Different types of Logging
+##### Access logs
+#
+```python
+import datetime
+import logging
+logger = logging.getLogger(__name__)
+
+def home(request):
+    logger.warning('Home page was accessed at '+str(datetime.datetime.now())+' hours')
+```
+
+
+##### Audit logs [Source](https://django-auditlog.readthedocs.io/en/latest/usage.html)
+
+Auditlog can automatically log changes to objects for you. This functionality is based on Django’s signals, but linking your models to Auditlog is even easier than using signals.
+Registering your model for logging can be done with a single line of code, as the following example illustrates:
+```python
+from django.db import models
+
+from auditlog.models import AuditlogHistoryField
+from auditlog.registry import auditlog
+
+class MyModel(models.Model):
+    sku = models.CharField(max_length=20)
+    version = models.CharField(max_length=5)
+    product = models.CharField(max_length=50, verbose_name='Product Name')
+    history = AuditlogHistoryField()
+
+auditlog.register(MyModel)
+```
+#
 ## Serializers
 #
 ````python
@@ -206,6 +385,17 @@ class EventSerializer(serializers.Serializer):
         if data['start'] > data['finish']:
             raise serializers.ValidationError("finish must occur after start")
         return data
+```
+
+##### Custom Validator (Example)
+Individual fields on a serializer can include validators, by declaring them on the field instance, for example:
+```python
+def multiple_of_ten(value):
+    if value % 10 != 0:
+        raise serializers.ValidationError('Not a multiple of ten')
+
+class GameRecord(serializers.Serializer):
+    score = IntegerField(validators=[multiple_of_ten])
 ```
 
 
