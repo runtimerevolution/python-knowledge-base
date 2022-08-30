@@ -149,6 +149,26 @@ Then, in the views file:
 ```python
 permission_classes = [IsOwnerOrReadOnly]
 ```
+
+#### Custom Model Permissions 
+
+To create custom permissions for a given model object, use the permissions model Meta attribute.
+
+This example Task model creates two custom permissions, i.e., actions users can or cannot do with Task instances, specific to your application:
+
+```python
+class Task(models.Model):
+    ...
+    class Meta:
+        permissions = [
+            ("change_task_status", "Can change the status of tasks"),
+            ("close_task", "Can remove a task by setting its status as closed"),
+        ]
+```
+The only thing this does is create those extra permissions when you run manage.py migrate (the function that creates permissions is connected to the post_migrate signal). Your code is in charge of checking the value of these permissions when a user is trying to access the functionality provided by the application (changing the status of tasks or closing tasks.) Continuing the above example, the following checks if a user may close tasks:
+```python
+user.has_perm('app.close_task')
+```
 ## Logging [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#logging)
 Logging is an important part of every application life cycle. Having a good logging system becomes a key feature that helps developers, sysadmins, and support teams to understand and solve appearing problems.
 The Python standard library and Django already comes with an integrated logging module that provides basic as well as advanced logging features. Log messages can give helpful information about various events happening behind the scenes.
@@ -276,6 +296,16 @@ LOGGING = {
 
 
 ### Different types of Logging
+##### Basic add instance log
+#
+```python
+import logging,traceback
+logger = logging.getLogger('django')
+
+def addSomeInstance(request):
+    //View logic
+    logger.warning('Added instance!')
+```
 ##### Access logs
 #
 ```python
@@ -287,8 +317,10 @@ def home(request):
     logger.warning('Home page was accessed at '+str(datetime.datetime.now())+' hours')
 ```
 
-
-##### Audit logs [Source](https://django-auditlog.readthedocs.io/en/latest/usage.html)
+## Audit logs
+Audit logs is the process of keeping track of the activity within some piece of software. It logs the event, the time which it happened and the responsible.
+There are several django libraries that offers this feature, one of those is the django-auditlog.
+### django-auditlog [Source](https://django-auditlog.readthedocs.io/en/latest/usage.html)
 
 Auditlog can automatically log changes to objects for you. This functionality is based on Django’s signals, but linking your models to Auditlog is even easier than using signals.
 Registering your model for logging can be done with a single line of code, as the following example illustrates:
@@ -306,6 +338,8 @@ class MyModel(models.Model):
 
 auditlog.register(MyModel)
 ```
+
+
 #
 ## Serializers
 #
@@ -401,9 +435,9 @@ class GameRecord(serializers.Serializer):
 
 
 
+
 #
-#
-##### Create ViewSet
+# Create ViewSet
 As seen in Django Rest Framework docs [(Link)](https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset), the ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes. The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
 
 ````python
@@ -412,7 +446,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
 ````
 
-##### Adding authentication permissions to views (Example)
+### Adding authentication permissions to views (Example)
 REST framework includes a number of permission classes that we can use to restrict who can access a given view. In this case the one we're looking for is IsAuthenticatedOrReadOnly, which will ensure that authenticated requests get read-write access, and unauthenticated requests get read-only access. [(Link)](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/)
 
 ````python
@@ -425,7 +459,21 @@ class MovieViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 ````
 
-##### Adding addicional validations to default ModelViewSetFunctions (Example)
+### Different permissions for different actions
+You may inspect these attributes to adjust behaviour based on the current action. For example, you could restrict permissions to everything except the list action similar to this:
+```python
+def get_permissions(self):
+    """
+    Instantiates and returns the list of permissions that this view requires.
+    """
+    if self.action == 'list':
+        permission_classes = [IsAuthenticated]
+    else:
+        permission_classes = [IsAdminUser]
+    return [permission() for permission in permission_classes]
+```
+
+### Adding addicional validations to default ModelViewSetFunctions (Example)
 This function calls the given model and get object from that if that object or model doesn't exist it raise 404 error.
 ````python
 def retrieve(self, request, pk=None, *args, **kwargs):
@@ -476,7 +524,7 @@ Another example using actions:
         serializer = self.get_serializer(recent_users, many=True)
         return Response(serializer.data)
 ````  
-
+<!-- [a relative link](factory_boy.md) -->
 #### If a custom endpoint doesn't use Serializer, we must validate each param individually (Example)
 
 ```python
@@ -499,7 +547,6 @@ def validate_birth_date(self, request):
 # Flow (Frontend - Next.js)
 
 ###### Again, assuming you already have an project created, let’s skip the create react app step.
-# 
 #
 
 #### User Authentication [Source](https://nextjs.org/docs/authentication)
@@ -598,7 +645,7 @@ With these validation checks in place, when a user tries to submit an empty fiel
 #### JavaScript-based Form Validation (Example)
 Form Validation is important to ensure that a user has submitted the correct data, in a correct format. JavaScript offers an additional level of validation along with HTML native form attributes on the client side. Developers generally prefer validating form data through JavaScript because its data processing is faster when compared to server-side validation, however front-end validation may be less secure in some scenarios as a malicious user could always send malformed data to your server.
 
-```sh
+```tsx
   function validateFormWithJS() {
     const name = document.querySelector('#name').value
     const rollNumber = document.querySelector('#rollNumber').value
@@ -614,8 +661,84 @@ Form Validation is important to ensure that a user has submitted the correct dat
     }
   }
 ```
+## Creating TypeScript types in Next.js [Source](https://blog.logrocket.com/using-next-js-with-typescript/)
+
+You can create types for anything in your application, including prop types, API responses, arguments for your utility functions, and even properties of your global state.
+
+The interface below reflects the shape of a Post object. It expects id, title, and body properties.
+```tsx
+// types/index.ts
+
+export interface IPost {
+  id: number
+  title: string
+  body: string
+}
+```
+
+```tsx
+// components/AddPost.tsx
+
+import * as React from 'react'
+import { IPost } from '../types'
+
+type Props = {
+  savePost: (e: React.FormEvent, formData: IPost) => void
+}
+
+const AddPost: React.FC<Props> = ({ savePost }) => {
+  const [formData, setFormData] = React.useState<IPost>()
+
+  const handleForm = (e: React.FormEvent<HTMLInputElement>): void => {
+    setFormData({
+      ...formData,
+      [e.currentTarget.id]: e.currentTarget.value,
+    })
+  }
+
+  return (
+    <form className='Form' onSubmit={(e) => savePost(e, formData)}>
+      <div>
+        <div className='Form--field'>
+          <label htmlFor='name'>Title</label>
+          <input onChange={handleForm} type='text' id='title' />
+        </div>
+        <div className='Form--field'>
+          <label htmlFor='body'>Description</label>
+          <input onChange={handleForm} type='text' id='body' />
+        </div>
+      </div>
+      <button
+        className='Form__button'
+        disabled={formData === undefined ? true : false}
+      >
+        Add Post
+      </button>
+    </form>
+  )
+}
+
+export default AddPost
+```
+
+### Response Types
+Another thing you might be using is the API routes from Next.js.
+```tsx
+export default function handler(req, res) {
+  res.status(200).json({ name: 'John Doe' });
+}
+```
+We can typecast the req and res to be types like this:
+```tsx
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  res.status(200).json({ name: 'John Doe' });
+}
+```
 
 
+#
 ## Front-end - Back-end connection
 #### Using the Axios API [Source](https://www.digitalocean.com/community/tutorials/react-axios-react)
 Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code. 
@@ -624,7 +747,7 @@ npm install axios
 ```
 
 ### Examples Axios call
-````sh
+````tsx
 import axios from 'axios';
   async getMovies(): Promise<any> {
   try {
@@ -646,7 +769,7 @@ export default axios.create({
 ````
 
 ### Example Axios Post
-````sh
+````tsx
 async createMovie(body: { name: string; genre: string; starring: string }) {
     try {
       const {data} = await axios.post(`http://127.0.0.1:8000/backend_api/movies/`, body);
@@ -659,7 +782,7 @@ async createMovie(body: { name: string; genre: string; starring: string }) {
 }
 ````
 ### Example Axios Put
-````sh
+````tsx
 const res = await axios.put(`http://127.0.0.1:8000/backend_api/movies/${movie.id}`, {
     name: 'Movie edited',
     genre: 'Comedy',
@@ -677,3 +800,53 @@ async updateMovie(body: { name: 'Movie edited', genre: 'Comedy', director: 'New 
       return null;
     }
 }
+````
+
+### Making Http GET requests with Axios in TypeScript
+```tsx
+// servies/types
+
+type User = {
+  id: number;
+  email: string;
+  first_name: string;
+};
+
+type GetUsersResponse = {
+  data: User[];
+};
+```
+
+```tsx
+import axios from 'axios';
+import { User, GetUsersResponse } from '../services/types'
+
+async function getUsers() {
+  try {
+    const { data, status } = await axios.get<GetUsersResponse>(
+      'https://reqres.in/api/users',
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+      },
+    );
+
+    console.log(JSON.stringify(data, null, 4));
+
+    console.log('response status is: ', status);
+
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log('error message: ', error.message);
+      return error.message;
+    } else {
+      console.log('unexpected error: ', error);
+      return 'An unexpected error occurred';
+    }
+  }
+}
+
+getUsers();
+```
