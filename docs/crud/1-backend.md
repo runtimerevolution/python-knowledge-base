@@ -19,7 +19,7 @@ class Movie(models.Model):
 ````
 
 
-### Apply models to the DB
+### `Apply models to the DB`
 #
 ```sh
 python manage.py makemigrations
@@ -27,7 +27,7 @@ python manage.py makemigrations
 ```sh
 python manage.py migrate
 ```
-### Create Super User
+### `Create Super User`
 #
 ```sh
 python manage.py createsuperuser
@@ -43,7 +43,7 @@ The authentication schemes are always defined as a list of classes. REST framewo
 If no class authenticates, request.user will be set to an instance of django.contrib.auth.models.AnonymousUser, and request.auth will be set to None.
 
 #
-## Setting the authentication scheme
+## `Setting the authentication scheme`
 The default authentication schemes may be set globally, using the DEFAULT_AUTHENTICATION_CLASSES setting. For example.
 
 ```python
@@ -105,7 +105,7 @@ class IsAuthenticatedOrReadOnly(BasePermission):
         )
 ```
 #
-## How permissions are determined
+## ` How permissions are determined`
 Permissions in REST framework are always defined as a list of permission classes.
 
 Before running the main body of the view each permission in the list is checked. If any permission check fails, an exceptions.PermissionDenied or exceptions.NotAuthenticated exception will be raised, and the main body of the view will not run.
@@ -116,7 +116,7 @@ When the permission checks fail, either a "403 Forbidden" or a "401 Unauthorized
 -  The request was not successfully authenticated, and the highest priority authentication class does not use WWW-Authenticate headers. — An HTTP 403 Forbidden response will be returned.
 - The request was not successfully authenticated, and the highest priority authentication class does use WWW-Authenticate headers. — An HTTP 401 Unauthorized response, with an appropriate WWW-Authenticate header will be returned.
 
-#### Custom Permissions (Example)
+#### `Custom Permissions (Example)`
 ```python
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -139,7 +139,7 @@ permission_classes = [IsOwnerOrReadOnly]
 ```
 #
 
-## Custom Model Permissions 
+## `Custom Model Permissions `
 
 To create custom permissions for a given model object, use the permissions model Meta attribute.
 
@@ -192,7 +192,7 @@ By default, any log message that meets log level requirements will be handled. H
 ## `Formatters`
 Ultimately, a log record needs to be rendered as text. Formatters describe the exact format of that text. A formatter usually consists of a Python formatting string containing LogRecord attributes; however, you can also write custom formatters to implement specific formatting behavior.
 
-## Default logging definition 
+## `Default logging definition` 
 Django’s default logging configuration inherits Python’s defaults. It’s available as django.utils.log.DEFAULT_LOGGING and defined in django/utils/log.py:
 ```python
 {
@@ -244,7 +244,7 @@ Django’s default logging configuration inherits Python’s defaults. It’s av
 }
 ```
 
-## Basic Custom Logging Configuration [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#topic-logging-parts-loggers)
+## `Basic Custom Logging Configuration` [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#topic-logging-parts-loggers)
 #
 Logging configuration that allows to output warnings in the console:
 ```python
@@ -287,9 +287,9 @@ LOGGING = {
 ```
 
 
-### Different types of Logging
-## `Basic add instance log`
-#
+## `Different types of Logging`
+### `Basic add instance log`
+
 ```python
 import logging,traceback
 logger = logging.getLogger('django')
@@ -298,8 +298,8 @@ def addSomeInstance(request):
     //View logic
     logger.warning('Added instance!')
 ```
-##### Access logs
-#
+### `Access logs`
+
 ```python
 import datetime
 import logging
@@ -312,7 +312,7 @@ def home(request):
 ## `Audit logs`
 Audit logs is the process of keeping track of the activity within some piece of software. It logs the event, the time which it happened and the responsible.
 There are several django libraries that offers this feature, one of those is the django-auditlog.
-### django-auditlog [Source](https://django-auditlog.readthedocs.io/en/latest/usage.html)
+### `django-auditlog` [Source](https://django-auditlog.readthedocs.io/en/latest/usage.html)
 
 Auditlog can automatically log changes to objects for you. This functionality is based on Django’s signals, but linking your models to Auditlog is even easier than using signals.
 Registering your model for logging can be done with a single line of code, as the following example illustrates:
@@ -332,7 +332,7 @@ auditlog.register(MyModel)
 ```
 
 
-#
+
 # Serializers
 
 ````python
@@ -345,7 +345,7 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 ````
 #
-#### Serializer Validations - [Source](https://www.django-rest-framework.org/api-guide/serializers/#modelserializer)
+#### `Serializer Validations` - [Source](https://www.django-rest-framework.org/api-guide/serializers/#modelserializer)
 By default, all the model fields on the class will be mapped to a corresponding serializer fields.
 Any relationships such as foreign keys on the model will be mapped to PrimaryKeyRelatedField. Reverse relationships are not included by default unless explicitly included as specified in the serializer relations documentation.
 
@@ -358,7 +358,7 @@ serializer.errors
 # {'email': ['Enter a valid e-mail address.'], 'created': ['This field is required.']}
 ```
 
-## Inspecting a ModelSerializer
+## `Inspecting a ModelSerializer`
 Serializer classes generate helpful verbose representation strings, that allow you to fully inspect the state of their fields. This is particularly useful when working with ModelSerializers where you want to determine what set of fields and validators are being automatically created for you.
 
 Allow blank and null: 
@@ -371,7 +371,7 @@ Regex validation:
 class UserSerializer(serializers.ModelSerializer):
      first_name = serializers.RegexField(regex=r'^[a-zA-Z -.\'\_]+$', required=True)
 ```
-## Field-level validation
+## `Field-level validation`
 Check that the blog post is about Django:
 ```python
 from rest_framework import serializers
@@ -394,7 +394,7 @@ def validate_rating(self, value):
         return value
 ```
 
-## Object-level validation
+## `Object-level validation`
 To do any other validation that requires access to multiple fields, add a method called .validate() to your Serializer subclass. This method takes a single argument, which is a dictionary of field values. It should raise a serializers.ValidationError if necessary, or just return the validated values. For example:
 ```python
 from rest_framework import serializers
@@ -413,7 +413,7 @@ class EventSerializer(serializers.Serializer):
         return data
 ```
 
-## Custom Validator (Example)
+## `Custom Validator (Example)`
 Individual fields on a serializer can include validators, by declaring them on the field instance, for example:
 ```python
 def multiple_of_ten(value):
@@ -424,11 +424,6 @@ class GameRecord(serializers.Serializer):
     score = IntegerField(validators=[multiple_of_ten])
 ```
 
-
-
-
-
-
 # Views
 As seen in Django Rest Framework docs [(Link)](https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset), the ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes. The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
 
@@ -438,7 +433,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
 ````
 
-## Adding authentication permissions to views (Example)
+## `Adding authentication permissions to views (Example)`
 REST framework includes a number of permission classes that we can use to restrict who can access a given view. In this case the one we're looking for is IsAuthenticatedOrReadOnly, which will ensure that authenticated requests get read-write access, and unauthenticated requests get read-only access. [(Link)](https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/)
 
 ````python
@@ -451,7 +446,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 ````
 
-## Different permissions for different actions
+## `Different permissions for different actions`
 You may inspect these attributes to adjust behaviour based on the current action. For example, you could restrict permissions to everything except the list action similar to this:
 ```python
 def get_permissions(self):
@@ -465,7 +460,7 @@ def get_permissions(self):
     return [permission() for permission in permission_classes]
 ```
 
-## Adding addicional validations to default ModelViewSetFunctions (Example)
+## `Adding addicional validations to default ModelViewSetFunctions (Example)`
 This function calls the given model and get object from that if that object or model doesn't exist it raise 404 error.
 ````python
 def retrieve(self, request, pk=None, *args, **kwargs):
@@ -474,7 +469,7 @@ def retrieve(self, request, pk=None, *args, **kwargs):
         return Response(serializer.data, status=status.HTTP_200_OK)
 ````
 
-## Extra actions with validation (Example)
+## `Extra actions with validation (Example)`
 
 Getting the Movie director by using an extra action with a different serializer
 ````python            
@@ -517,7 +512,7 @@ Another example using actions:
         return Response(serializer.data)
 ````  
 
-## If a custom endpoint doesn't use Serializer, we must validate each param individually (Example)
+#### If a custom endpoint doesn't use Serializer, we must validate each param individually (Example)
 
 ```python
 def check_positive_numbers(value1, value2):
