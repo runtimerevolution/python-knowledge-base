@@ -1,4 +1,4 @@
-# Checkllist
+# Development checkllist
 
 ## Steps to keep in mind when developing a CRUD app
 

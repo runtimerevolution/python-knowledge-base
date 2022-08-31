@@ -6,7 +6,7 @@
 
 # Authentication 
 [Source](https://nextjs.org/docs/authentication)
-## Authenticating Statically Generated Pages
+## `Authenticating Statically Generated Pages`
 Next.js automatically determines that a page is static if there are no blocking data requirements. This means the absence of getServerSideProps and getInitialProps in the page. Instead, your page can render a loading state from the server, followed by fetching the user client-side.
 One advantage of this pattern is it allows pages to be served from a global CDN and preloaded using next/link. In practice, this results in a faster TTI (Time to Interactive).
 Let's look at an example for a profile page. This will initially render a loading skeleton. Once the request for a user has finished, it will show the user's name:
@@ -37,8 +37,9 @@ const Profile = () => {
 
 export default Profile
 ```
-##### Authenticating Server-Rendered Pages (Example)
 #
+## `Authenticating Server-Rendered Pages (Example)`
+
 ```sh
 // pages/profile.js
 
@@ -74,9 +75,10 @@ const Profile = ({ user }) => {
 
 export default Profile
 ```
-
+#
 # Validation
-#### Built-in Form validation (Example) [Source](https://nextjs.org/docs/guides/building-forms)
+
+## `Built-in Form validation (Example)` [Source](https://nextjs.org/docs/guides/building-forms)
 
 ```sh
 <form action="/send-data-here" method="post">
@@ -98,7 +100,7 @@ export default Profile
 With these validation checks in place, when a user tries to submit an empty field for Name, it gives an error that pops right in the form field. Similarly, a roll number can only be entered if it's 10-20 characters long.
 
 
-## JavaScript-based Form Validation (Example)
+## `JavaScript-based Form Validation (Example)`
 Form Validation is important to ensure that a user has submitted the correct data, in a correct format. JavaScript offers an additional level of validation along with HTML native form attributes on the client side. Developers generally prefer validating form data through JavaScript because its data processing is faster when compared to server-side validation, however front-end validation may be less secure in some scenarios as a malicious user could always send malformed data to your server.
 
 ```tsx
@@ -118,7 +120,7 @@ Form Validation is important to ensure that a user has submitted the correct dat
   }
 ```
 # TypeScript
-## Creating TypeScript types in Next.js [Source](https://blog.logrocket.com/using-next-js-with-typescript/)
+## `Creating TypeScript types in Next.js` [Source](https://blog.logrocket.com/using-next-js-with-typescript/)
 
 You can create types for anything in your application, including prop types, API responses, arguments for your utility functions, and even properties of your global state.
 
@@ -179,7 +181,7 @@ export default AddPost
 ```
 
 # Responses
-## Response Types
+## `Response Types`
 Another thing you might be using is the API routes from Next.js.
 ```tsx
 export default function handler(req, res) {
@@ -197,15 +199,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 
 # Axios
-## Front-end - Back-end connection
-#### Using the Axios API [Source](https://www.digitalocean.com/community/tutorials/react-axios-react)
+## `Front-end - Back-end connection`
+## Using the Axios API [Source](https://www.digitalocean.com/community/tutorials/react-axios-react)
 Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code. 
 ```sh
 npm install axios
 ```
 
 
-### Response type conversion
+## Response type conversion
 
 Sometimes the data coming from the API has values that may break our application. Due to this fact you should always parse the response. For example:
 ```js
