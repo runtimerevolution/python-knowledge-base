@@ -1,29 +1,10 @@
-# What is CRUD?
-
-The current state of web development almost always involves interaction with a database. That said, it is necessary to perform certain operations with it. Hence the need to use the 4 basic CRUD operations.
-A great advantage of these operations is that with them alone you can create a complete web application.
-### Crud Meaning
-Meaning of CRUD: acronym referring to the 4 basic functions that are executed in a database model:
-
-##### Create:
-- This function allows the application to create data and save it to the database.
-##### Read:
-- This function allows the application to read data from the database.
-##### Update
-- This function allows the application to update existing data in the database.
-##### Delete
-- This function allows the application to delete information from the database.
-
-#
-#
-
-
+[Flow - Backend](0-index.md)
 # Flow (Backend)
 
-###### Assuming you already have an project created, let's skip the create project and app steps.
+### Assuming you already have an project created, let's skip the create project and app steps.
 #
 
-##### Models (Example)
+# Models (Example)
 #
 ````python
 class Movie(models.Model):
@@ -50,7 +31,9 @@ python manage.py migrate
 ```sh
 python manage.py createsuperuser
 ```
-## Authentication [Source](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+# Authentication
+[Source](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
+
 Authentication is the mechanism of associating an incoming request with a set of identifying credentials, such as the user the request came from, or the token that it was signed with. The permission and throttling policies can then use those credentials to determine if the request should be permitted.
 
 #### How authentication is determined
@@ -88,7 +71,9 @@ class ExampleView(APIView):
 ```
 
 
-## Permissions [Source](https://www.django-rest-framework.org/api-guide/permissions/)
+# Permissions
+[Source](https://www.django-rest-framework.org/api-guide/permissions/)
+
 Together with authentication and throttling, permissions determine whether a request should be granted or denied access.
 
 Permission checks are always run at the very start of the view, before any other code is allowed to proceed. Permission checks will typically use the authentication information in the request.user and request.auth properties to determine if the incoming request should be permitted.
@@ -169,7 +154,8 @@ The only thing this does is create those extra permissions when you run manage.p
 ```python
 user.has_perm('app.close_task')
 ```
-## Logging [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#logging)
+# Logging
+# [Source](https://docs.djangoproject.com/en/4.1/topics/logging/#logging)
 Logging is an important part of every application life cycle. Having a good logging system becomes a key feature that helps developers, sysadmins, and support teams to understand and solve appearing problems.
 The Python standard library and Django already comes with an integrated logging module that provides basic as well as advanced logging features. Log messages can give helpful information about various events happening behind the scenes.
 
@@ -341,7 +327,7 @@ auditlog.register(MyModel)
 
 
 #
-## Serializers
+# Serializers
 #
 ````python
 from rest_framework import serializers
@@ -436,8 +422,8 @@ class GameRecord(serializers.Serializer):
 
 
 
-#
-# Create ViewSet
+
+# Views
 As seen in Django Rest Framework docs [(Link)](https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset), the ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes. The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
 
 ````python
@@ -524,7 +510,7 @@ Another example using actions:
         serializer = self.get_serializer(recent_users, many=True)
         return Response(serializer.data)
 ````  
-<!-- [a relative link](factory_boy.md) -->
+
 #### If a custom endpoint doesn't use Serializer, we must validate each param individually (Example)
 
 ```python
@@ -542,311 +528,4 @@ def validate_birth_date(self, request):
     if birth_date >= datetime.date.today():
         raise ValidationError(_('Enter an accurate birthdate.'))
     return date
-```
-#
-# Flow (Frontend - Next.js)
-
-###### Again, assuming you already have an project created, let’s skip the create react app step.
-#
-
-#### User Authentication [Source](https://nextjs.org/docs/authentication)
-##### Authenticating Statically Generated Pages
-Next.js automatically determines that a page is static if there are no blocking data requirements. This means the absence of getServerSideProps and getInitialProps in the page. Instead, your page can render a loading state from the server, followed by fetching the user client-side.
-One advantage of this pattern is it allows pages to be served from a global CDN and preloaded using next/link. In practice, this results in a faster TTI (Time to Interactive).
-Let's look at an example for a profile page. This will initially render a loading skeleton. Once the request for a user has finished, it will show the user's name:
-
-```sh
-// pages/profile.js
-
-import useUser from '../lib/useUser'
-import Layout from '../components/Layout'
-
-const Profile = () => {
-  // Fetch the user client-side
-  const { user } = useUser({ redirectTo: '/login' })
-
-  // Server-render loading state
-  if (!user || user.isLoggedIn === false) {
-    return <Layout>Loading...</Layout>
-  }
-
-  // Once the user request finishes, show the user
-  return (
-    <Layout>
-      <h1>Your Profile</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </Layout>
-  )
-}
-
-export default Profile
-```
-##### Authenticating Server-Rendered Pages (Example)
-#
-```sh
-// pages/profile.js
-
-import withSession from '../lib/session'
-import Layout from '../components/Layout'
-
-export const getServerSideProps = withSession(async function ({ req, res }) {
-  const { user } = req.session
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: { user },
-  }
-})
-
-const Profile = ({ user }) => {
-  // Show the user. No loading state is required
-  return (
-    <Layout>
-      <h1>Your Profile</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </Layout>
-  )
-}
-
-export default Profile
-```
-
-
-#### Built-in Form validation (Example) [Source](https://nextjs.org/docs/guides/building-forms)
-
-```sh
-<form action="/send-data-here" method="post">
-  <label for="roll">Roll Number</label>
-  <input
-    type="text"
-    id="roll"
-    name="roll"
-    required
-    minlength="10"
-    maxlength="20"
-  />
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required />
-  <button type="submit">Submit</button>
-</form>
-```
-
-With these validation checks in place, when a user tries to submit an empty field for Name, it gives an error that pops right in the form field. Similarly, a roll number can only be entered if it's 10-20 characters long.
-
-
-#### JavaScript-based Form Validation (Example)
-Form Validation is important to ensure that a user has submitted the correct data, in a correct format. JavaScript offers an additional level of validation along with HTML native form attributes on the client side. Developers generally prefer validating form data through JavaScript because its data processing is faster when compared to server-side validation, however front-end validation may be less secure in some scenarios as a malicious user could always send malformed data to your server.
-
-```tsx
-  function validateFormWithJS() {
-    const name = document.querySelector('#name').value
-    const rollNumber = document.querySelector('#rollNumber').value
-
-    if (!name) {
-      alert('Please enter your name.')
-      return false
-    }
-
-    if (rollNumber.length < 3) {
-      toast('Roll Number should be at least 3 digits long.')
-      return false
-    }
-  }
-```
-## Creating TypeScript types in Next.js [Source](https://blog.logrocket.com/using-next-js-with-typescript/)
-
-You can create types for anything in your application, including prop types, API responses, arguments for your utility functions, and even properties of your global state.
-
-The interface below reflects the shape of a Post object. It expects id, title, and body properties.
-```tsx
-// types/index.ts
-
-export interface IPost {
-  id: number
-  title: string
-  body: string
-}
-```
-
-```tsx
-// components/AddPost.tsx
-
-import * as React from 'react'
-import { IPost } from '../types'
-
-type Props = {
-  savePost: (e: React.FormEvent, formData: IPost) => void
-}
-
-const AddPost: React.FC<Props> = ({ savePost }) => {
-  const [formData, setFormData] = React.useState<IPost>()
-
-  const handleForm = (e: React.FormEvent<HTMLInputElement>): void => {
-    setFormData({
-      ...formData,
-      [e.currentTarget.id]: e.currentTarget.value,
-    })
-  }
-
-  return (
-    <form className='Form' onSubmit={(e) => savePost(e, formData)}>
-      <div>
-        <div className='Form--field'>
-          <label htmlFor='name'>Title</label>
-          <input onChange={handleForm} type='text' id='title' />
-        </div>
-        <div className='Form--field'>
-          <label htmlFor='body'>Description</label>
-          <input onChange={handleForm} type='text' id='body' />
-        </div>
-      </div>
-      <button
-        className='Form__button'
-        disabled={formData === undefined ? true : false}
-      >
-        Add Post
-      </button>
-    </form>
-  )
-}
-
-export default AddPost
-```
-
-### Response Types
-Another thing you might be using is the API routes from Next.js.
-```tsx
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' });
-}
-```
-We can typecast the req and res to be types like this:
-```tsx
-import { NextApiRequest, NextApiResponse } from 'next';
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ name: 'John Doe' });
-}
-```
-
-
-#
-## Front-end - Back-end connection
-#### Using the Axios API [Source](https://www.digitalocean.com/community/tutorials/react-axios-react)
-Axios is promise-based, which gives you the ability to take advantage of JavaScript’s async and await for more readable asynchronous code. 
-```sh
-npm install axios
-```
-
-### Examples Axios call
-````tsx
-import axios from 'axios';
-  async getMovies(): Promise<any> {
-  try {
-    const {data} = await axios.get('http://127.0.0.1:8000/backend_api/movies');
-    return data;
-  } catch (error) {
-    return { error };
-  }
-};
-
-import axios from 'axios';
-export default axios.create({
-    baseURL: "http://127.0.0.1:8000/backend_api/movies",
-    headers: {
-        'Accept':'application/json',
-        'Content-Type':'application/json',
-    }
-})
-````
-
-### Example Axios Post
-````tsx
-async createMovie(body: { name: string; genre: string; starring: string }) {
-    try {
-      const {data} = await axios.post(`http://127.0.0.1:8000/backend_api/movies/`, body);
-      return data;
-    } catch (error) {
-      const err = error as AxiosError;
-      console.log('Error: ', err.message, err.response?.data);
-      return null;
-    }
-}
-````
-### Example Axios Put
-````tsx
-const res = await axios.put(`http://127.0.0.1:8000/backend_api/movies/${movie.id}`, {
-    name: 'Movie edited',
-    genre: 'Comedy',
-    director: 'New director'
-});
-
-
-async updateMovie(body: { name: 'Movie edited', genre: 'Comedy', director: 'New director'}) {
-    try {
-      const {data} = await axios.put(`http://127.0.0.1:8000/backend_api/movies/`, body);
-      return data;
-    } catch (error) {
-      const err = error as AxiosError;
-      console.log('Error: ', err.message, err.response?.data);
-      return null;
-    }
-}
-````
-
-### Making Http GET requests with Axios in TypeScript
-```tsx
-// servies/types
-
-type User = {
-  id: number;
-  email: string;
-  first_name: string;
-};
-
-type GetUsersResponse = {
-  data: User[];
-};
-```
-
-```tsx
-import axios from 'axios';
-import { User, GetUsersResponse } from '../services/types'
-
-async function getUsers() {
-  try {
-    const { data, status } = await axios.get<GetUsersResponse>(
-      'https://reqres.in/api/users',
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      },
-    );
-
-    console.log(JSON.stringify(data, null, 4));
-
-    console.log('response status is: ', status);
-
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('error message: ', error.message);
-      return error.message;
-    } else {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';
-    }
-  }
-}
-
-getUsers();
 ```
