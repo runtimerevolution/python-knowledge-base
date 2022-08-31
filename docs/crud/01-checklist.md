@@ -31,3 +31,14 @@
 - [Responses](2-frontend.md#responses)
 
 - [Axios](2-frontend.md#axios)
+
+
+#
+## Development checkllist
+[Index](0-index.md)
+
+## Backend flow and steps
+[Flow - Backend](1-backend.md)
+## Frontend flow and steps
+[Flow - FrontEnd](2-frontend.md)
+

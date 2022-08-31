@@ -1,4 +1,4 @@
-[Flow - Backend](0-index.md)
+[Index](0-index.md)
 # Flow (Backend)
 
 ### Assuming you already have an project created, let's skip the create project and app steps.

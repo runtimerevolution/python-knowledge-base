@@ -16,6 +16,9 @@ Meaning of CRUD: acronym referring to the 4 basic functions that are executed in
 #
 
 
+## Development checkllist
+[Checklist](01-checklist.md)
+
 ## Backend flow and steps
 [Flow - Backend](1-backend.md)
 ## Frontend flow and steps
