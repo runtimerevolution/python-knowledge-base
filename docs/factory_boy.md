@@ -35,7 +35,7 @@ factory boy provides a wrapper for faker
 
 ### Simple faker attribute
 ````python
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
 
     class Meta:
@@ -52,7 +52,7 @@ https://faker.readthedocs.io/en/latest/providers/baseprovider.html#faker.provide
 
 :x: **Common Mistake:**
 ````python
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     duration = fake.random_int(min=30, max=500)
 ````
@@ -63,7 +63,7 @@ and the next time you run `MusicTrackFactory.create()` the duration would all be
 
 :white_check_mark: **Correct Implementation:**
 ````python
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     duration = factory.Faker('random_int',min=30, max=500)
 ````
@@ -78,10 +78,10 @@ https://factoryboy.readthedocs.io/en/stable/recipes.html#dependent-objects-forei
 You can use SubFactory to create other dependent models like:
 
 ````python
-class BandFactory(models.Model):
+class BandFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     Band = factory.SubFactory(BandFactory)
 ````
@@ -93,15 +93,15 @@ https://factoryboy.readthedocs.io/en/stable/orms.html#factory.django.DjangoOptio
 for django we use django_get_or_create, for unique fields so we don't have exception when running tests
 
 ````python
-class BandFactory(models.Model):
+class BandFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
-    custom_id = factory.Faker('name')
+    custom_id = factory.Faker("lexify", text="???-###-????????-????")
     
     class Meta:
         model = Band
-        django_get_or_create = ("name",)
+        django_get_or_create = ("custom_id",)
     
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     band = factory.SubFactory(BandFactory)
 
@@ -113,19 +113,19 @@ class MusicTrackFactory(models.Model):
 ## Final Factories
 
 ````python
-class BandFactory(models.Model):
+class BandFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     custom_id = factory.Faker("lexify", text="???-###-????????-????")
     
     class Meta:
         model = Band
-        django_get_or_create = ("name",)
+        django_get_or_create = ("custom_id",)
     
-class MusicTrackFactory(models.Model):
+class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     band = factory.SubFactory(BandFactory)
     release_date = factory.Faker('date_this_century',before_today=True)
-    duration = fake.random_int(min=30, max=500)
+    duration = factory.Faker('random_int',min=30, max=500)
     class Meta:
         model = MusicTrack
         django_get_or_create = ("name","band",)
