@@ -1,10 +1,9 @@
-from datetime import timedelta, datetime
+from datetime import datetime
 from unittest.mock import patch
 
 from django.test import TestCase
-from django.utils import timezone
 
-from .utils import yesterday
+from sample_django_project.library.utils import yesterday
 
 
 class SampleTest(TestCase):
