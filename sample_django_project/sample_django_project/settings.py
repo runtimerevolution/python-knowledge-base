@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "library"
+    "library.apps.LibraryConfig",
+    "myapp.apps.MyappConfig",
 ]
 
 MIDDLEWARE = [
@@ -77,11 +78,11 @@ WSGI_APPLICATION = "sample_django_project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_DBNAME"),
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PWD"),
-        "HOST": os.getenv("POSTGRES_HOST"),
-        "PORT": os.getenv("POSTGRES_PORT"),
+        "NAME": os.getenv("POSTGRES_DBNAME", "postgres"),
+        "USER": os.getenv("POSTGRES_USER", "postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PWD", "postgres"),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "PORT": os.getenv("POSTGRES_PORT", "5503"),
     }
 }
 

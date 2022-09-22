@@ -1,7 +1,7 @@
 services:
   library-postgres:
     container_name: library-postgres
-    image: postgres:10
+    image: postgres:11
     restart: always
     environment:
       - POSTGRES_DB=${POSTGRES_DBNAME}

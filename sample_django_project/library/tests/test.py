@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from django.test import TestCase
 
-from sample_django_project.library.utils import yesterday
+from ..utils import yesterday
 
 
 class SampleTest(TestCase):

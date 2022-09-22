@@ -1,21 +1,26 @@
 # Pytest
 
-> this document was inspired/copied from of [https://docs.python.org/3/library/unittest.html](https://docs.python.org/3/library/unittest.html) and 
-> [https://docs.djangoproject.com/en/4.1/topics/testing/overview/](https://docs.djangoproject.com/en/4.1/topics/testing/overview/)
+> this document was inspired/copied from of
+> [https://docs.python.org/3/library/unittest.html](https://docs.python.org/3/library/unittest.html),
+> [https://docs.pytest.org](https://docs.pytest.org) and
+> [https://pytest-django.readthedocs.io/en/latest/](https://pytest-django.readthedocs.io/en/latest/)
 
-Pytest is a Python testing framework that originated from the PyPy project. It can be used to write various types of 
-software tests, including unit tests, integration tests, end-to-end tests, and functional tests. Its features include 
+Pytest is a Python testing framework that originated from the PyPy project. It can be used to write various types of
+software tests, including unit tests, integration tests, end-to-end tests, and functional tests. Its features include
 parametrized testing, fixtures, and assert re-writing.
+
+> Python doesn't include Pytest out of the box, you must install it.
+> Please check [https://docs.pytest.org](https://docs.pytest.org)
 
 ## Anatomy of a test
 
 Pytest divides a test into four steps:
 
 - **Arrange** is where we prepare everything for our test. This means pretty much everything except for the “act”.
-This can mean preparing objects, starting/killing services, entering records into a database, or even things like 
-defining a URL to query, generating some credentials for a user that doesn't exist yet, or just waiting for some 
+This can mean preparing objects, starting/killing services, entering records into a database, or even things like
+defining a URL to query, generating some credentials for a user that doesn't exist yet, or just waiting for some
 process to finish.
-- **Act** is the singular, state-changing action that kicks off the behavior we want to test. This typically takes the 
+- **Act** is the singular, state-changing action that kicks off the behavior we want to test. This typically takes the
 form of a function/method call.
 - **Assert** is where we take that measurement/observation on our test and apply our judgement to it.
 - **Cleanup** is where the test picks up after itself, so other tests aren’t being accidentally influenced by it.
@@ -114,7 +119,7 @@ Pytest allows you to use the standard Python **assert** for verifying expectatio
 
 ### Custom error message
 
-Assert supports a message, which should be used to make assert statements more clear. 
+Assert supports a message, which should be used to make assert statements more clear.
 
 ````python
 import pytest
@@ -135,6 +140,27 @@ class TestStringMethods:
             s.split(2)
 ````
 
+## Parametrize
+
+The builtin _pytest.mark.parametrize_ decorator enables parametrization of arguments for a test function.
+
+```python
+import pytest
+
+@pytest.mark.parametrize("test_input,expected", [("3+5", 8), ("2+4", 6), ("6*9", 42)])
+def test_eval(test_input, expected):
+    assert eval(test_input) == expected
+```
+
+which can also be declared as
+
+```python
+@pytest.mark.parametrize("test_input", ["3+5", "2+4", "6*9"])
+@pytest.mark.parametrize("expected", [8, 6, 42])
+def test_eval(test_input, expected):
+    assert eval(test_input) == expected
+```
+
 ## Anatomy of a Django test
 
 > To use Pytest with Django you must install [https://pytest-django.readthedocs.io](https://pytest-django.readthedocs.io)
@@ -144,20 +170,30 @@ import pytest
 
 from myapp.models import Animal
 
-class AnimalTestCase:
-    fixtures = ["animal_app/fixtures/initial_data/status.json",]
-    
-    @pytest.mark.django_db
-    def test_animals_can_speak(self):
-        """Animals that can speak are correctly identified"""
-        lion = Animal.objects.get(name="lion")
-        cat = Animal.objects.get(name="cat")
-        self.assertEqual(lion.speak(), 'The lion says "roar"')
-        self.assertEqual(cat.speak(), 'The cat says "meow"')
-```
 
-The default behavior of the test utility is to find all the test cases (that is, subclasses of unittest.TestCase) in
-any file whose name begins with test, automatically build a test suite out of those test cases, and run that suite.
+@pytest.fixture(scope="function")
+def cat():
+    Animal.objects.create(name="cat", sound="meow")
+
+
+@pytest.fixture(scope="function")
+def lion():
+    Animal.objects.create(name="lion", sound="roar")
+
+
+@pytest.fixture(scope="function")
+def felines(lion, cat):
+    ...
+
+@pytest.mark.django_db
+def test_animals_can_speak(felines):
+    """Animals that can speak are correctly identified"""
+    lion = Animal.objects.get(name="lion")
+    cat = Animal.objects.get(name="cat")
+
+    assert lion.speak() == 'The lion says "roar"'
+    assert cat.speak(), 'The cat says "meow"'
+```
 
 ### Why would I use this instead of Django’s manage.py test command?
 
@@ -168,51 +204,3 @@ Running the test suite with pytest offers some features that are not present in 
 - Run tests in multiple processes for increased speed.
 - There are a lot of other nice plugins available for pytest.
 - Easy switching: Existing unittest-style tests will still work without any modifications.
-
-### Django models in tests
-
-
-
-If your tests rely on database access such as creating or querying models, be sure to create your test classes as 
-subclasses of **django.test.TestCase** rather than **unittest.TestCase**.
-
-### Test execution order
-
-Using unittest.TestCase avoids the cost of running each test in a transaction and flushing the database, but if your
-tests interact with the database their behavior will vary based on the order that the test runner executes them. This
-can lead to unit tests that pass when run in isolation but fail when run in a suite.
-
-### Command Line
-
-Similarly to what happens with unittest, Django allows the same functionality where a module can be used from the 
-command line to run tests from modules, classes or even individual test methods.
-
-The example below show how tests can be executed from the most general, which runs all the tests, to the most 
-particular, where only one individual test is executed.
-
-```bash
-python manage.py test
-python manage.py test animal_app.tests.AnimalTestCase
-python manage.py test animal_app.tests.AnimalTestCase.test_animals_can_speak
-```
-
-#### Preserve database between test execution
-
-The test **--keepdb** option preserves the test database between test runs. It skips the create and destroy actions 
-which can greatly decrease the time to run tests.
-
-```bash
-python manage.py test --keepdb
-```
-
-#### Automatically recover from a test run that was forcefully interrupted
-
-If a test run is forcefully interrupted, the test database may not be destroyed. On the next run, you’ll be asked 
-whether you want to reuse or destroy the database. Use the test **--noinput** option to suppress that prompt and 
-automatically destroy the database. This can be useful when running tests on a continuous integration server where 
-tests may be interrupted by a timeout, for example.
-
-```bash
-python manage.py test --noinput
-```
-
