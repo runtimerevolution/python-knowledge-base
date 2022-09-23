@@ -50,7 +50,7 @@ class TestStringMethods:  # A testcase
 
 ### Fixture
 
-Fixtures are each of the **arrange** steps and data.
+Fixtures are everything that needs to happen/exist in order to run a test.They're part of the **arrange** steps.
 
 ````python
 import pytest
