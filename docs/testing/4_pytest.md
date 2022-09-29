@@ -192,7 +192,7 @@ def test_animals_can_speak(felines):
     cat = Animal.objects.get(name="cat")
 
     assert lion.speak() == 'The lion says "roar"'
-    assert cat.speak(), 'The cat says "meow"'
+    assert cat.speak() == 'The cat says "meow"'
 ```
 
 ### Why would I use this instead of Django’s manage.py test command?
