@@ -1,9 +1,11 @@
 from datetime import datetime
-from unittest.mock import patch
 
 from django.test import TestCase
 
-from ..utils import yesterday
+from ..utils import yesterday, timezone
+from unittest.mock import patch, MagicMock, Mock
+
+
 
 
 class SampleTest(TestCase):
@@ -19,6 +21,24 @@ class YesterdayTest(TestCase):
     @patch("library.utils.timezone.now")
     def test_success(self, mock):
         mock.return_value = datetime(1945, 2, 12, 0, 0, 0)
+
+        expected = datetime(1945, 2, 11).date()
+
+        self.assertEqual(yesterday(), expected)
+
+class YesterdayTestMagicMock(TestCase):
+    def test_success(self):
+        tz = timezone
+        tz.now = MagicMock(return_value=datetime(1945, 2, 12, 0, 0, 0))
+
+        expected = datetime(1945, 2, 11).date()
+
+        self.assertEqual(yesterday(), expected)
+
+class YesterdayTestMock(TestCase):
+    def test_success(self):
+        tz = timezone
+        tz.now = Mock(return_value=datetime(1945, 2, 12, 0, 0, 0))
 
         expected = datetime(1945, 2, 11).date()
 
