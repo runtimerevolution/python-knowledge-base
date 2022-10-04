@@ -1,0 +1,8 @@
+{
+    "python.testing.pytestArgs": [
+        "sample_django_project"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.envFile":   "${workspaceFolder}/sample_django_project/.env",
+}

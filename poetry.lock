@@ -1126,18 +1126,6 @@ docs = ["sphinx", "sphinx-rtd-theme"]
 testing = ["django", "django-configurations (>=2.0)"]
 
 [[package]]
-name = "pytest-dotenv"
-version = "0.5.2"
-description = "A py.test plugin that parses environment files before running tests"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-pytest = ">=5.0.0"
-python-dotenv = ">=0.9.1"
-
-[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -1147,17 +1135,6 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
 [package.dependencies]
 six = ">=1.5"
-
-[[package]]
-name = "python-dotenv"
-version = "0.21.0"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-cli = ["click (>=5.0)"]
 
 [[package]]
 name = "pytz"
@@ -1456,7 +1433,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "604396339a1371c2bc5f054074fdd28f20947d8883a87fd54648db86cdf04546"
+content-hash = "0a85c0f58bfd9d28deb0a29b9ba02d0427bbc835695d2d09922c5eb2ea5db377"
 
 [metadata.files]
 appnope = [
@@ -2088,12 +2065,10 @@ pyrsistent = [
 ]
 pytest = []
 pytest-django = []
-pytest-dotenv = []
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
-python-dotenv = []
 pytz = [
     {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
     {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},

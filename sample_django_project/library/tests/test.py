@@ -7,7 +7,6 @@ from unittest.mock import patch, MagicMock, Mock
 
 
 
-
 class SampleTest(TestCase):
     """Test to be deleted simply to test pre-commit"""
 

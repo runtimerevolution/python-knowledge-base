@@ -90,7 +90,7 @@ from datetime import datetime
 
 from django.test import TestCase
 
-from ..utils import yesterday, timezone
+from ..utils import yesterday
 from unittest.mock import patch
 
 class YesterdayTest(TestCase):
