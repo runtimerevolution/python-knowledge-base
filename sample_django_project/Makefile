@@ -33,3 +33,11 @@ createuser:
 
 test:
 	python manage.py test
+
+py_test:
+	pytest
+
+clean:
+	find . -name '*.py[co]' -delete
+	find . -name '__pycache__'  -exec rm -r '{}' \;
+	find . -name '.pytest_cache'  -exec rm -r '{}' \;

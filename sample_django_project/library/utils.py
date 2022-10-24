@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from django.utils import timezone
 from datetime import timedelta
 
