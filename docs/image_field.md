@@ -30,9 +30,9 @@ Note that the `color` option can Hardcoded with something like `color="blue"` an
 generation of images with the color blue. In this case, `factory.Faker("color")` will generate random color names
 which will result in the generation of images with diferent colors for each `cover_image`.
 
-## Image Field Views Tests
+## ImageField Views Tests
 
-To test the views that involve the cover_image attribute you can simply generate an image based on the
+To test the views that involve the `cover_image` attribute you can simply generate an image based on the
 implemented factory for the cover image just like the example below.
 
 ````python
@@ -73,9 +73,9 @@ class BookCreateViewTestCase(APITestCase):
 
 It is crucial that the `format` option in set to `"multipart"` for the test to work. 
 It is also important to have the `tearDown` method implemented in order to delete the images
-generated with the factory in the path refered above (`.../library_project/media/covers/`).
+saved on the folder refered previously (`.../library_project/media/covers/`).
 
-## Alternative way to implement tests in View Tests
+## Tests for Views with ImageField with temp files
 
 Other way of implementing a view test that includes an ImageField is with the `SimpleUploadedFile()` method.
 
@@ -111,7 +111,7 @@ class BookCreateViewTestCase(APITestCase):
 
 ````
 In this case we generate an Image with the PIL Library, save it in a temporary file,
-process it with `SimpleUploadedFile()` method and then make the post request.
+process it with `SimpleUploadedFile()` method and then make the POST request.
 
 
 
