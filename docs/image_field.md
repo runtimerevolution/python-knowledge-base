@@ -75,7 +75,7 @@ It is crucial that the `format` option in set to `"multipart"` for the test to w
 It is also important to have the `tearDown` method implemented in order to delete the images
 saved on the folder refered previously (`.../library_project/media/covers/`).
 
-## Tests for Views with ImageField with temp files
+## ImageField Views Tests using temp files
 
 Other way of implementing a view test that includes an ImageField is with the `SimpleUploadedFile()` method.
 
@@ -83,6 +83,7 @@ Other way of implementing a view test that includes an ImageField is with the `S
 from django.core.files.uploadedfile import SimpleUploadedFile
 from io import BytesIO
 from PIL import Image
+import shutil
 
 class BookCreateViewTestCase(APITestCase):
     def setUp(self):
@@ -90,6 +91,9 @@ class BookCreateViewTestCase(APITestCase):
             "cover_image": #...
             #...
         }
+
+    def tearDown(self):
+        shutil.rmtree(REMOVE_MEDIA_FILES_PATH)
 
     def test_create_with_image(self):
         image = Image.new(mode="RGB", size=(20, 20))
@@ -110,11 +114,8 @@ class BookCreateViewTestCase(APITestCase):
 
 
 ````
-In this case we generate an Image with the PIL Library, save it in a temporary file,
+The code above will generate an Image with the PIL Library, save it in a temporary file,
 process it with `SimpleUploadedFile()` method and then make the POST request.
 
-
-
-
-
-
+In this case the tearDown method still needs to be implemented, since the POST
+request will save the image in the media folder.
