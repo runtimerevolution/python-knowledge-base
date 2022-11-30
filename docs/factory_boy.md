@@ -143,16 +143,16 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
 Let's consider the following Factory example:
 
 ```python
-class AuthorFactory(factory.django.DjangoModelFactory):
+class BandFactory(factory.django.DjangoModelFactory):
     name = factory.Faker("name")
-    biography = factory.Faker("paragraph", nb_sentences=5)
+    custom_id = factory.Faker("lexify", text="???-###-????????-????")
     pseudonym = factory.Faker("boolean", chance_of_getting_true=0)
-    author = factory.Maybe(
+    band = factory.Maybe(
         "pseudonym",
-        yes_declaration=factory.SubFactory("library.factories.AuthorFactory", pseudonym=False),
+        yes_declaration=factory.SubFactory("<project_name>.factories.BandFactory", pseudonym=False),
         no_declaration=None,
     )
 ```
 
-In this example the attribute `author` will only be not null if the `pseudonym` attribute (which is a boolean field) has a value of true.
+In this example the attribute `band` will only be not null if the `pseudonym` attribute (which is a boolean field) has a value of true.
 To implement this we can use the `factory.Maybe` Method.
