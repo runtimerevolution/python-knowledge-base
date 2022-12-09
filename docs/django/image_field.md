@@ -104,6 +104,12 @@ saved on the folder refered previously (`.../library_project/media/covers/`).
 
 Other way of implementing a view test that includes an ImageField is with the `SimpleUploadedFile()` method.
 
+The code below will generate an Image with the PIL Library, save it in a temporary file,
+process it with `SimpleUploadedFile()` method and then make the POST request.
+
+In this case the tearDown method still needs to be implemented, since the POST
+request will save the image in the media folder.
+
 ````python
 from django.core.files.uploadedfile import SimpleUploadedFile
 from io import BytesIO
@@ -139,8 +145,3 @@ class BookCreateViewTestCase(APITestCase):
 
 
 ````
-The code above will generate an Image with the PIL Library, save it in a temporary file,
-process it with `SimpleUploadedFile()` method and then make the POST request.
-
-In this case the tearDown method still needs to be implemented, since the POST
-request will save the image in the media folder.
