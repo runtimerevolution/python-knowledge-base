@@ -47,6 +47,7 @@ repos:
     rev: "5.10.1" # Use the revision sha / tag you want to point at
     hooks:
       - id: isort
+        args: ["--profile", "black"]
   - repo: https://github.com/pycqa/flake8
     rev: "4.0.1"
     hooks:
@@ -66,7 +67,7 @@ optionally, but highly recommended, you could also add these useful checks
       - id: end-of-file-fixer # makes all files end in a newline
       - id: mixed-line-ending # fixes mixed line endings automatically
       - id: no-commit-to-branch
-        args: ["master"] # no commits to master
+        args: ["--branch", "master"] # no commits to master
 ```
 
 configure a `.pyproject.toml` file if you don't have one create one on root folder
