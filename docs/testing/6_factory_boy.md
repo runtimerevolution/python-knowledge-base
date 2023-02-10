@@ -137,3 +137,22 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
         model = MusicTrack
         django_get_or_create = ("name","band",)
 ```
+
+## If conditions within Factory (factory.Maybe Method)
+
+Let's consider the following Factory example:
+
+```python
+class BandFactory(factory.django.DjangoModelFactory):
+    name = factory.Faker("name")
+    custom_id = factory.Faker("lexify", text="???-###-????????-????")
+    pseudonym = factory.Faker("boolean", chance_of_getting_true=0)
+    band = factory.Maybe(
+        "pseudonym",
+        yes_declaration=factory.SubFactory("<project_name>.factories.BandFactory", pseudonym=False),
+        no_declaration=None,
+    )
+```
+
+In this example the attribute `band` will only be not null if the `pseudonym` attribute (which is a boolean field) has a value of true.
+To implement this we can use the `factory.Maybe` Method.

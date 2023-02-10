@@ -10,7 +10,7 @@ new Apple M1 Chip you might run into trouble trying to follow these steps.*
 - [Pyenv](#pyenv)
   - [Install](#install)
   - [Commands](#commands)
-- [Virtualenv](#virtualenv)
+- [Pyenv Virtualenv](#pyenv-virtualenv)
 - [Main Packages](#main-packages)
   - [Web framework](#web-framework)
   - [Linter](#linter)
@@ -112,14 +112,14 @@ pyenv local 3.10.2
 ```
 ---
 
-## Virtualenv
+## Pyenv Virtualenv
 
-[virtualenv](https://virtualenv.pypa.io/en/latest/) is a tool to create isolated Python environments.
-Depending on your type of projects it is good practice having different environments for different projects
+[pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) is a [pyenv](https://github.com/pyenv/pyenv) plugin 
+that provides features to manage virtualenvs and conda environments for Python on UNIX-like systems.
 
-install virtualenv
+install pyenv-virtualenv
 ```shell
-python -m pip install virtualenv
+brew install pyenv-virtualenv
 ```
 
 create your virtualenv using the installed python above
