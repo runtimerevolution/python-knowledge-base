@@ -26,13 +26,13 @@ class BookInformationFactory(factory.django.DjangoModelFactory):
     #...
 ````
 
-Note that the `color` option can Hardcoded with something like `color="blue"` and that will result in the 
+Note that the `color` option can be Hardcoded with something like `color="blue"` and that will result in the 
 generation of images with the color blue. In this case, `factory.Faker("color")` will generate random color names
 which will result in the generation of images with diferent colors for each `cover_image`.
 
 ## Django Model Serializer 
 
-Considering the previously shown factory, here is the correspondent serializer for POST and PUT requests.  
+Considering the previous factory, here is the correspondent serializer for POST and PUT requests.  
 
 ````python 
 class BookInformationCreateUpdateSerializer(serializers.ModelSerializer):
