@@ -34,6 +34,8 @@ poetry add --dev isort==5.10.1
 
 ## Setup
 
+### Pre-Commit
+
 Add a file on root named `.pre-commit-config.yaml`
 ```
 default_language_version:
@@ -70,6 +72,24 @@ optionally, but highly recommended, you could also add these useful checks
         args: ["--branch", "master"] # no commits to master
 ```
 
+Optionally, you can also run code tests with repository local hooks (documented [here](https://pre-commit.com/#repository-local-hooks)).
+
+```
+  - repo: local
+    hooks:
+      - id: tests
+        name: run tests
+        always_run: true # Not required but ensures that the tests always run even if there are no matching.
+        entry: make test # The command that calls the tests. In this case, it's a command in a Makefile.
+        language: system # It's a system hook and no specific virtual environment will be provided for the hook's execution;
+        pass_filenames: false # Don't try to pass the names of the files that were changed to the hook entry;
+
+```
+
+Note: The entry `make test` is assuming there's test command in a Makefile. If you don't have a Makefile, you can do the usual `python manage.py test`.
+
+### Poetry
+
 configure a `.pyproject.toml` file if you don't have one create one on root folder
 
 ```
@@ -79,6 +99,8 @@ line-length = 120
 [tool.isort]
 profile = "black"
 ```
+
+### Flake8
 
 configure a `.flake8` file if you don't have one create one on root folder
 

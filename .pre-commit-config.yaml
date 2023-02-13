@@ -24,3 +24,11 @@ repos:
       - id: mixed-line-ending # fixes mixed line endings automatically
       - id: no-commit-to-branch
         args: ["-b master"] # no commits to master
+  - repo: local
+    hooks:
+      - id: tests
+        name: run tests
+        always_run: true # Not required but ensures that the tests always run even if there are no matching.
+        entry: make test # The command that calls the tests. In this case, it's a command in a Makefile.
+        language: system # It's a system hook and no specific virtual environment will be provided for the hook's execution;
+        pass_filenames: false # Don't try to pass the names of the files that were changed to the hook entry;
