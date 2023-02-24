@@ -26,6 +26,8 @@ class Band(models.Model):
     custom_id = models.TextField(unique=True)
 ```
 
+---
+
 ## Faker
 
 - factory boy with faker https://factoryboy.readthedocs.io/en/stable/reference.html#faker
@@ -76,7 +78,55 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
 
 ### Other providers
 
-Here is a list of other fakers classes https://faker.readthedocs.io/en/latest/providers.html
+You can find more providers [here](https://faker.readthedocs.io/en/latest/providers.html). If you can't find the provider you need, you can also check [here](https://faker.readthedocs.io/en/latest/communityproviders.html) for community maintained providers.
+
+If you still can't find the provider you need. You can always develop your own custom provider.
+
+### Custom providers
+
+You can very easily create your own custom Faker providers to supplement your factories with better, more revelant data. For example, let's say you want better names for the MusicTrack model instead of generating a person's name.
+
+```python
+import factory
+from faker.providers import BaseProvider
+
+class MusicTrackNameProvider(BaseProvider):
+    __provider__ = "track_name"
+    song_names_1 = [
+        "The Awakening",
+        "The Voyagers",
+        "The Empyreal",
+        "Of Carnage and",
+        "Callisto",
+        "The Scourge",
+        "The Thirteen",
+    ]
+    song_names_2 = [
+        "of the Stars",
+        "Beneath the Mare Imbrium",
+        "Lexicon",
+        "a Gathering of the Wolves",
+        "Rising",
+        "of the Fourth Celestial Host",
+        "Cryptical Prophecies of Mu",
+    ]
+
+    def track_name(self):
+        return f"{self.random_element(self.track_names_1)} {self.random_element(self.track_names_2)}"
+
+# This is the important bit that allows you to simply invoke the provider with the name "track_name".
+factory.Faker.add_provider(MusicTrackNameProvider)
+
+class MusicTrackFactory(factory.django.DjangoModelFactory):
+    # Invoking the provider is as simple as calling the value defined in __provider__.
+    name = factory.Faker("track_name")
+```
+
+As you can see, this is very simple to do and you can easily make your factories output data with higher quality. You can be as creative and versatile with the data that is generated as you need. For this example, it simply combines random values from two different lists.
+
+For code-organization reasons, you can always implement your providers in a providers.py file and have your factories in the factories.py file.
+
+---
 
 ## Relations and Foreign Keys
 
@@ -92,6 +142,8 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
     Band = factory.SubFactory(BandFactory)
 ```
+
+---
 
 ## Unique constraints
 
@@ -117,6 +169,8 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("name","band",)
 ```
 
+---
+
 ## Final Factories
 
 ```python
@@ -137,6 +191,8 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
         model = MusicTrack
         django_get_or_create = ("name","band",)
 ```
+
+---
 
 ## If conditions within Factory (factory.Maybe Method)
 
