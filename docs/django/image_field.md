@@ -127,21 +127,21 @@ class BookCreateViewTestCase(APITestCase):
         shutil.rmtree(REMOVE_MEDIA_FILES_PATH)
 
     def test_create_with_image(self):
-        image = Image.new(mode="RGB", size=(20, 20))
+        base_image = Image.new(mode="RGB", size=(20, 20))
 
         tempFile = BytesIO()
-        image.save(tempFile, format="JPEG")
+        base_image.save(tempFile, format="JPEG")
         tempFile.seek(0)
 
         with tempFile as temp:
-            image = SimpleUploadedFile("sample.jpg", temp.read(), content_type="image/jpeg")
-            self.data["cover_image"] = image
+            read_image = SimpleUploadedFile("sample.jpg", temp.read(), content_type="image/jpeg")
+            self.data["cover_image"] = read_image
 
             res = self.client.post(self.url, self.data, format="multipart")
-            image.seek(0)
+            read_image.seek(0)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(BookInformation.objects.first().cover_image.read(), image.read())
+        self.assertEqual(BookInformation.objects.first().cover_image.read(), read_image.read())
 
 
 ````
