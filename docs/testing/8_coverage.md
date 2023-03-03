@@ -8,7 +8,7 @@ This guide will show you how to run coverage.py and generate a final report in h
 
 ## Running coverage
 
-After installing, to run coverage on your test suite, it's as simple as calling the following command:
+After installing, running coverage on your test suite is as simple as calling the following command:
 
 ```bash
 coverage run manage.py test
