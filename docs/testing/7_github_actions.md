@@ -122,7 +122,7 @@ jobs:
 
 ### Results
 
-Once you've commit-pushed your workflow, you can access the actions page of your repository. For example, this knowledge base, also has a continuous integration workflow defined, you can the actions page [here](https://github.com/runtimerevolution/python-knowledge-base/actions).
+Once you've commit-pushed your workflow, you can access the actions page of your repository. For example, this knowledge base, also has a continuous integration workflow defined, you can see the actions page [here](https://github.com/runtimerevolution/python-knowledge-base/actions).
 
 You can inspect each run individually and see if it's running correctly or not, or if the tests are accusing something wrong.
 
