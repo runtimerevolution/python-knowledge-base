@@ -1,6 +1,6 @@
 # Factory boy
 
-https://factoryboy.readthedocs.io/en/stable/index.html
+<https://factoryboy.readthedocs.io/en/stable/index.html>
 
 As a fixtures replacement tool, it aims to replace static, hard to maintain fixtures with easy-to-use factories for
 complex objects.
@@ -30,8 +30,8 @@ class Band(models.Model):
 
 ## Faker
 
-- factory boy with faker https://factoryboy.readthedocs.io/en/stable/reference.html#faker
-- faker https://faker.readthedocs.io/en/latest/
+- factory boy with faker <https://factoryboy.readthedocs.io/en/stable/reference.html#faker>
+- faker <https://faker.readthedocs.io/en/latest/>
 
 Factory boy has many ways to generate data, usually we prefer to use Faker,
 factory boy provides a wrapper for faker
@@ -47,13 +47,13 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
 ```
 
 Basically this is calling the `name` function in Faker library
-https://faker.readthedocs.io/en/latest/providers/faker.providers.person.html#faker.providers.person.Provider.name
+<https://faker.readthedocs.io/en/latest/providers/faker.providers.person.html#faker.providers.person.Provider.name>
 
 ### Faker attribute with params
 
 Let's say we want our music durations to be between 30 and 500 seconds
 we can use `random_int` like in
-https://faker.readthedocs.io/en/latest/providers/baseprovider.html#faker.providers.BaseProvider.random_int
+<https://faker.readthedocs.io/en/latest/providers/baseprovider.html#faker.providers.BaseProvider.random_int>
 
 :x: **Common Mistake:**
 
@@ -130,7 +130,7 @@ For code-organization reasons, you can always implement your providers in a prov
 
 ## Relations and Foreign Keys
 
-https://factoryboy.readthedocs.io/en/stable/recipes.html#dependent-objects-foreignkey
+<https://factoryboy.readthedocs.io/en/stable/recipes.html#dependent-objects-foreignkey>
 
 You can use SubFactory to create other dependent models like:
 
@@ -147,7 +147,7 @@ class MusicTrackFactory(factory.django.DjangoModelFactory):
 
 ## Unique constraints
 
-https://factoryboy.readthedocs.io/en/stable/orms.html#factory.django.DjangoOptions.django_get_or_create
+<https://factoryboy.readthedocs.io/en/stable/orms.html#factory.django.DjangoOptions.django_get_or_create>
 
 for django we use django_get_or_create, for unique fields so we don't have exception when running tests
 
