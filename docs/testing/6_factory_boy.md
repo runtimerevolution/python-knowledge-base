@@ -84,7 +84,7 @@ If you still can't find the provider you need. You can always develop your own c
 
 ### Custom providers
 
-You can very easily create your own custom Faker providers to supplement your factories with better, more revelant data. For example, let's say you want better names for the MusicTrack model instead of generating a person's name.
+You can very easily create your own custom Faker providers to supplement your factories with better, more relevant data. For example, let's say you want better names for the MusicTrack model instead of generating a person's name.
 
 ```python
 import factory
