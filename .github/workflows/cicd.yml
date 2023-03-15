@@ -6,7 +6,7 @@ on:
 env:
   POSTGRES_DBNAME: postgres
   POSTGRES_USER: postgres
-  POSTGRES_PWDD: postgres
+  POSTGRES_PWD: postgres
   POSTGRES_HOST: 127.0.0.1
   POSTGRES_PORT: 15434
 
