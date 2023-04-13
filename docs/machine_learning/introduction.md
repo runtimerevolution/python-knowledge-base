@@ -98,3 +98,41 @@ depending on what the machine learning algorithm is trying to predict.
         Retrieved from [here](https://towardsdatascience.com/reinforcement-learning-101-e24b50e1d292).
     </figcaption>
 </figure>
+
+## Lifecycle
+
+The Machine Learning lifecycle involves several steps. This is not characterized by
+being a linear process since it is common to jump to previous steps in the process,
+based on conclusions drawn in future phases. The major steps are the following:
+
+1. Gathering data - identify the different data sources, data collection, data integration
+
+2. Data pre-processing - cleaning and converting raw data into a useable format
+   (Ex: missing values, duplicate records, invalid data, noise)
+
+3. Data Analysis - study the relationships contained in the different variables,
+   with vision in which could be a suitable model
+
+4. Model Selection - train and evaluate several machine learning algorithms/pipelines
+
+5. Test Model - final evaluation of the candidate model in a different dataset
+
+6. Deployment - deploy the model in the real world system! So it can be consumed by other applications
+
+<figure markdown>
+  ![Machine Learning Lifecycle](./assets/lifecycle.png){ width="600" }
+    <figcaption>
+        Machine Learning Process. Adapted from "Machine Learning Process And Scenarios" by Akhil Mittal.
+        Retrieved from [here](https://elearningindustry.com/machine-learning-process-and-scenarios).
+    </figcaption>
+</figure>
+
+## Families of Algorithms
+
+Machine Learning algorithms can be classified into different families,
+depending on nature of the learning process. The four major families are the following:
+
+-   Information-based: concepts from Information Theory to train the models (Ex: Decision Trees)
+-   Similarity-based: measuring similarity between past and forthcoming occurrences (Ex: K-Nearest Neighbor)
+-   Probability-based: measuring how likely is that some event will occur (Ex: Bayesian Network)
+-   Error-based: minimizing the total error through a set of training instances (Ex: Linear Regression)
