@@ -1,6 +1,6 @@
 # Regression
 
-Regression, along with classification, are the most common machine learning problems.
+Regression, along with classification, are the most common machine learning techniques.
 The difference between them is that in regression the algorithms are used to predict
 continuous outcome. Regression machine learning models live in the group of
 supervised learning where the output variable (dependent variable) is known, and
@@ -21,15 +21,15 @@ flowchart BT
 
 ## Linear Regression
 
--   statistical method used to model the relationship between a dependent variable and
-    one or more independent variables
+- Statistical method used to model the relationship between a dependent variable and
+  one or more independent variables.
 
--   assumes that the relationship between the dependent variable and the
-    independent variable(s) is linear
+- Assumes that the relationship between the dependent variable and the
+  independent variable(s) is linear.
 
 <strong>Training</strong>: find the line of best fit that minimizes the sum of
 squared differences between the predicted values and the actual values of the
-dependent variable
+dependent variable.
 
 The equation of the hyperplane (n independent variables) is given by:
 
@@ -50,16 +50,16 @@ y = b0 + b1X1
 
 Before using linear regression model, make sure that the data follow these assumptions:
 
-1. The variables should be measured at a continuous level
+1. The variables should be measured at a continuous level.
 
 2. Relationship between the dependent variable and the independent variable(s) is linear
-   (scatter plot to visualize)
+   (scatter plot to visualize).
 
-3. The observations and variables should be independent of each other
+3. The observations and variables should be independent of each other.
 
-4. Your data should have no significant outliers
+4. Your data should have no significant outliers.
 
-5. The residuals (errors) of the best-fit regression line follow normal distribution
+5. The residuals (errors) of the best-fit regression line follow normal distribution.
 
 ## Polynomial Regression
 
@@ -98,11 +98,11 @@ X = [
 
 The training process would be exactly the same: find the coefficients
 for each of the features that minimizes the square error. In the described example,
-since we would have 2 coefficients instead of 1, it would define a parabol instead of
+since we would have 2 coefficients instead of 1, it would define a parable instead of
 a straight line.
 
-Key factors to considerer:
+Key factors to consider:
 
--   Include nonlinear terms such as 𝑥²
--   Often used when the relationship between the variables cannot be accurately described by a linear model
--   Plot the data (Ex: scatter plot) and check if a linear model is appropriate
+- Include nonlinear terms such as 𝑥².
+- Often used when the relationship between the variables cannot be accurately described by a linear model.
+- Plot the data (Ex: scatter plot) and check if a linear model is appropriate.
