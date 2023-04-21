@@ -44,7 +44,7 @@ the entire dataset in different sets, usually the following:
 - testing set (usually ~15%): data samples used to evaluate the model
 
 <figure markdown>
-  ![Train-test Split](./assets/train-test-split.png){ width="500" }
+  ![Train-test Split](https://cdn.shortpixel.ai/spai/q_lossy+w_730+to_webp+ret_img/https://algotrading101.com/learn/wp-content/uploads/2020/06/training-validation-test-data-set.png){ width="500" }
     <figcaption>
         Train-Test Split. Adapted from "Train/Test Split and Cross Validation – A Python Tutorial” by Greg Bland. 
         Retrieved from [here](https://algotrading101.com/learn/train-test-split/).
@@ -59,7 +59,7 @@ These will be performed K (number of folds) times, so the advantage is that
 the data coverage will be higher (more reliable evaluation).
 
 <figure markdown>
-  ![Cross-validation](./assets/cross-validation.png){ width="500" }
+  ![Cross-validation](https://scikit-learn.org/stable/_images/grid_search_cross_validation.png){ width="500" }
     <figcaption>
         Cross Validation. Adapted from "Cross-validation: evaluating estimator performance”. 
         Retrieved from [here](https://scikit-learn.org/stable/modules/cross_validation.html).
