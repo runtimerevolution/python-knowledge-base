@@ -139,3 +139,57 @@ in cases where there is a terrible relationship between the
 target and independent variables.
 
 `R2 = 1 - (SSres / SStot)`
+
+## Useful Plots
+
+Visualization sometimes can help taking conclusions about the
+obtained results. The listed metrics in the previous section
+are good to have a clear and specific evaluation of the model.
+However, some useful plots can be visualized to
+complement the achieved numeric results.
+
+### Regression
+
+The first plot is the actuals vs predicted values.
+Ideally, all the points should be laid in the diagonal line,
+which represents that the predicted value is equal to the
+actual value. This plot gives an overall idea of the
+achieved predictions and how far they are from the actual value.
+
+<figure markdown>
+  ![Actual vs Predicted plot](https://i.stack.imgur.com/FJi0n.png){ width="400" }
+    <figcaption>
+        Actual vs Predicted plot. 
+        Retrieved from [here](https://stats.stackexchange.com/questions/333037/interpret-regression-model-actual-vs-predicted-plot-far-off-of-y-x-line).
+    </figcaption>
+</figure>
+
+The second one is similar, however, the residual value
+substitutes one of the previous variables (actuals or predictions).
+Ideally, the points should be near 0.0 which means no error.
+The goal of this plot is to conclude the error for each
+range of values and visualize possible trends that the errors
+may show. This indicates that there is some pattern contained in
+the data that the model was not able to cover.
+
+<figure markdown>
+  ![Residuals vs Predicted plot](https://www.graphpad.com/guides/prism/latest/curve-fitting/images/reg_clip0154.png){ width="400" }
+    <figcaption>
+        Residuals vs Predicted plot. Adapted from "Residual plot".
+        Retrieved from [here](https://www.graphpad.com/guides/prism/latest/curve-fitting/reg_fit_tab_residuals_2.htm).
+    </figcaption>
+</figure>
+
+The last one is the histogram of residuals. This allows the
+conclusion of where are most errors contained. Additionally,
+it is also important to conclude the distribution of the errors.
+For example, a Linear Regression assumes that the errors are normally
+distributed.
+
+<figure markdown>
+  ![Residuals Histogram](https://d2mvzyuse3lwjc.cloudfront.net/doc/en/UserGuide/images/Graphic_Residual_Analysis/Graphic_Residual_Analysis-5.jpg?v=10739){ width="400" }
+    <figcaption>
+        Residuals Histogram. Adapted from "Residual Plot Analysis”. 
+        Retrieved from [here](https://www.originlab.com/doc/origin-help/residual-plot-analysis).
+    </figcaption>
+</figure>
