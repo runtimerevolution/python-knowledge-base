@@ -13,8 +13,8 @@ that we can use to compare to what was predicted by the model.
 However, the metrics are different between classification and regression problems
 since in the first one the target variable is not continuous.
 
-Another topic is worth mentioning, and that can lead to misleading
-conclusions is what data should be used to evaluate. If we train
+Another topic worth mentioning, that can lead to misleading conclusions,
+is what data should be used to evaluate. If we train
 the model with the entire dataset, make predictions over the same dataset,
 and compare these predictions with the actual values, we are not
 verifying how the model behaves with unseen data samples. That's why
@@ -35,6 +35,8 @@ The most used strategies are:
 - cross-validation
 - leave one out
 
+### Train-test split
+
 The idea behind the train-test split, as the name suggests, is to split
 the entire dataset in different sets, usually the following:
 
@@ -51,6 +53,8 @@ the entire dataset in different sets, usually the following:
     </figcaption>
 </figure>
 
+### Cross-validation
+
 Cross-validation, and leave one out are strategies used usually when
 the dataset size is not huge, since they are computationally expensive.
 The idea is to divide the entire dataset into K folds. The model
@@ -66,12 +70,16 @@ the data coverage will be higher (more reliable evaluation).
     </figcaption>
 </figure>
 
+### Leave one out
+
 Leave one out is usually applied on small datasets. It is a particular case
 of cross-validation, it is equivalent to using cross-validation with
 N folds, given that N is the number of samples in the dataset.
 This means that the model will be trained and evaluated N times,
 and the prediction for evaluation will be performed on a single
 sample at a time.
+
+### To be aware
 
 It is worth mentioning two additional topics:
 
